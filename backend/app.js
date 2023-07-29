@@ -45,7 +45,7 @@ app.use('/api', authRoutes);
 app.use(errorHandler);
 
 //port 
-const port = process.env.PORT || 9000
+const port = process.env.PORT || 8000
 
 io.on('connection', (socket)=>{
     console.log('a user is connected', socket.id);
