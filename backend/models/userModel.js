@@ -6,15 +6,15 @@ const userSchema = new mongoose.Schema({
     username: {
         type: String,
         trim: true,
-        required:[true, 'Please add a username'],
+        required:[true, "Please add a username"],
         unique: true,
-        minlength: [5, 'Username need minimum of 5 caracters'],
-        maxlength: [15, 'Username need maximum of 15 caracters']
+        minlength: [5, "Username need minimum of 5 caracters"],
+        maxlength: [15, "Username need maximum of 15 caracters"]
     },
     email:{
         type: String,
         trim: true,
-        require: [true, "Please add an email"],
+        required: [true, "Please add an email"],
         unique: true,
         match:[
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
         ]
     },
     role: {
-        type:String,
+        type: String,
         default: 'user'
     }
 }, {timestamps: true})
