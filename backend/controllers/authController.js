@@ -76,7 +76,11 @@ exports.logout = async(req, res, next)=>{
 }
 
 exports.userProfile = async(req, res, next)=>{
-    const user = await User.findById(req.id).select('-password');
+    const user = await User.findById(req.user.id).select('-password');
+    if(!user){
+        return next(new ErrorResponse("You must be connected", 400));
+    }
+
     res.status(200).json({
         success: true,
         user
