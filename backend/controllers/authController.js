@@ -3,8 +3,9 @@ const ErrorResponse = require('../utils/errorResponse');
 
 exports.signup = async(req, res, next)=>{
     const {email} = req.body;
-    const {username} = req.body;
     const userExist = await User.findOne({email});
+
+    const {username} = req.body;
     const usernameExist = await User.findOne({username})
 
     if(userExist){
@@ -25,18 +26,6 @@ exports.signup = async(req, res, next)=>{
     }
 }
 
-const sendTokenResponse = async(user, codeStatus, res)=>{
-    const token = await user.getJwtToken();
-    res
-    .status(codeStatus)
-    .cookie('token', token, {maxAge: 3*60*60*1000, httpOnly: true})
-    .json({
-        success: true,
-        id: user._id,
-        role: user.role
-    })
-
-}
 exports.signin = async(req, res, next)=>{
     try{
         const {email, password} = req.body;
@@ -49,6 +38,7 @@ exports.signin = async(req, res, next)=>{
         }
 
         const user = await User.findOne({email});
+
         if(!user){
             return next(new ErrorResponse("This email is not used", 400))
         }
@@ -58,10 +48,37 @@ exports.signin = async(req, res, next)=>{
             return next(new ErrorResponse("Password wrong", 400));
         }
 
-        //sendTokenResponse(user, 200, res);
-
+        sendTokenResponse(user, 200, res);
 
     }catch(error){
         next(error)
     }
+}
+
+const sendTokenResponse = async(user, codeStatus, res)=>{
+    const token = await user.getJwtToken();
+    res
+    .status(codeStatus)
+    .cookie('token', token, {maxAge: 3*60*60*1000, httpOnly: true})
+    .json({
+        success: true,
+        id: user._id,
+        role: user.role
+    })
+}
+
+exports.logout = async(req, res, next)=>{
+    res.clearCookie('token');
+    res.status(200).json({
+        success: true,
+        message : "logged out"
+    })
+}
+
+exports.userProfile = async(req, res, next)=>{
+    const user = await User.findById(req.id).select('-password');
+    res.status(200).json({
+        success: true,
+        user
+    })
 }

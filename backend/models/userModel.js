@@ -49,11 +49,11 @@ userSchema.methods.comparePassword = async function(yourPassword){
 }
 
 //Token for staying connected during 3 hours
-userSchema.methods.getJwtToken = async function(){
-    return jwt.sign({id: this.id}),
-    process.env.JWT_SECRET,{
-        expires: 3600*3
-    }
+userSchema.methods.getJwtToken = function(){
+    return jwt.sign({id: this.id},
+    process.env.JWT_SECRET, {
+        expiresIn: 10800
+    })
 }
 
 module.exports = mongoose.model('User', userSchema)
