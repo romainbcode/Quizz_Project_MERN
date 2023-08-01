@@ -5,6 +5,9 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import { Provider } from 'react-redux';
+import Home from './pages/Home';
+import CreateQuiz from './admin/CreateQuiz';
+
 
 
 const App = () =>{
@@ -16,6 +19,7 @@ const App = () =>{
           <BrowserRouter>
             <Routes>
               <Route path='/' element={<Home/>}></Route>
+              <Route path='/admin/post/create' element={<CreateQuiz/>}></Route>
             </Routes>
           </BrowserRouter>
         </ProSidebarProvider> 

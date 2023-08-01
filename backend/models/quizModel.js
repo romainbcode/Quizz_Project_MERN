@@ -9,11 +9,9 @@ const quizSchema = new mongoose.Schema({
         required: [true, "You must add a title"]
     },
     subheader: {
-        text: {
-            type: String,
-            maxlength: [75, "Subheader needs a maximum of 75 characters"],
-            required: [true, "You must add a subheader"]
-        }
+        type: String,
+        maxlength: [75, "Subheader needs a maximum of 75 characters"],
+        required: [true, "You must add a subheader"]
     },
     postedBy: {
         type: ObjectId,
@@ -23,12 +21,19 @@ const quizSchema = new mongoose.Schema({
         url: String,
         public_id: String,
     },
-    question: {
-        text: String,
+    questionAnswer: {
+        question: {
+            type: String,
+            required: [true, "You must add a question"]
+        },
         created: { type: Date, default: Date.now },
         answer: [{
-            text: String,
-            goodAnswer: Boolean
+            answerText: { 
+                type: String,
+            },
+            stateAnswer: {
+                type: Boolean
+            }
         }],
         postedBy: {
             type: ObjectId,

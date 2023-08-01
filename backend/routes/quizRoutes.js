@@ -1,11 +1,13 @@
 const express = require('express');
-const { createQuiz } = require('../controllers/quizController');
+const { createQuiz, showQuizs } = require('../controllers/quizController');
 const { isAuthenticated, isAdmin } = require('../middleware/auth');
 const router = express.Router()
 
 //Quiz routes
 
 //Create quiz route
-router.post('/quiz/create', isAuthenticated, isAdmin, createQuiz);
+router.post('/quiz/create',createQuiz);// isAuthenticated, isAdmin, createQuiz);
+//Show all quizs route
+router.get('/quizs/show', showQuizs);
 
 module.exports = router;
