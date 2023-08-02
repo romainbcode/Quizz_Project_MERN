@@ -39,6 +39,7 @@ exports.createQuiz = async(req, res, next)=>{
     }
 }
 
+//Show all quizs
 exports.showQuizs = async(req, res, next)=>{
     try{
         const quizs = await Quiz.find().sort({createdAt : -1}).populate('postedBy', 'name')
@@ -48,5 +49,18 @@ exports.showQuizs = async(req, res, next)=>{
         })
     }catch(error){
         next(error)
+    }
+}
+
+//show single quiz by id
+exports.showSingleQuiz = async(req, res, next)=>{
+    try{
+        const quiz = await Quiz.findById(req.params.id)
+        res.status(200).json({
+            success: true,
+            quiz
+        })
+    }catch(err){
+        next(err);
     }
 }
