@@ -3,6 +3,7 @@ import { Box, Container, Grid } from '@mui/material'
 import axios from 'axios';
 import moment from 'moment';
 import PostCard from '../components/PostCard';
+import Navbar from '../components/Navbar';
 
 
 
@@ -23,6 +24,7 @@ const Home = () => {
   }
 
   useEffect(()=>{
+    console.log(quizs)
     showQuizs();
   }, []);
 
@@ -30,10 +32,11 @@ const Home = () => {
   return (
     <>
       <Box sx={{bgcolor: "#fafafa", minHeight: "100vh"}}>
+      <Navbar/>
           <Container sx={{pt:5, pb:5, minHeight: "83vh"}}>
             <Box sx={{flexGrow:1}}>
               <Grid container spacing={{xs:2, md:3}} columns={{xs:4, sm:8, md:12}}>
-                <h1 style={{color: "black"}}>HOME PAGE</h1>
+                <h1>HOME PAGE</h1>
                 
                 {
                     isloading ? <>Loading....</> : 

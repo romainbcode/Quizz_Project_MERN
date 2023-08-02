@@ -29,21 +29,20 @@ export default function PostCard ({
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-        <CardHeader
-        avatar={
-            <Avatar sx={{ bgcolor: red[500] }}aria-label="recipe">
-            R
-            </Avatar>
-        }
-        title={title}
-        subheader={subheader}
-        />
+        <Typography gutterBottom variant="h5" component="div">
+            {title}
+            </Typography>
         <CardMedia
             component="img"
-            height="194"
+            sx={{ height: 200 }}
             image={image}
-            alt="photo"
         />
+        <CardContent>
+            <Typography variant="body2" color="text.secondary">
+            {subheader}
+            </Typography>
+        </CardContent>
+        
         <CardActions disableSpacing>
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
                 <Box>

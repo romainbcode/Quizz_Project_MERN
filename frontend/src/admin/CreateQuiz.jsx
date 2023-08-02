@@ -13,6 +13,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import {modules} from '../components/moduleToolbar.jsx'
 import React, { useEffect, useState, useCallback } from 'react'
+import Navbar from '../components/Navbar';
 
 
 
@@ -75,7 +76,6 @@ const CreateQuiz = () => {
         console.log(values)
         try {
             const { data } = await axios.post('/api/quiz/create', values);
-            toast.success(data)
             toast.success('Quiz created');
         } catch (error) {
             console.log(error);
@@ -87,6 +87,7 @@ const CreateQuiz = () => {
 
     return (
         <>
+        <Navbar/>
         <Formik 
             validationSchema={validationSchema}
             onSubmit={onSubmit}
