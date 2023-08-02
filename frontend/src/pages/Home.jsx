@@ -24,8 +24,8 @@ const Home = () => {
   }
 
   useEffect(()=>{
-    console.log(quizs)
     showQuizs();
+    console.log(quizs)
   }, []);
 
 
