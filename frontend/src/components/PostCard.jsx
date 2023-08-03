@@ -28,7 +28,7 @@ export default function PostCard ({
     }) {
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, p : 2, color: 'primary.themewhite', bgcolor: 'primary.mainGreenDark', borderRadius: '10%', boxShadow: '0 3px 10px #000' }}>
         <Typography gutterBottom variant="h5" component="div">
             {title}
             </Typography>
@@ -38,7 +38,7 @@ export default function PostCard ({
             image={image}
         />
         <CardContent>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2">
             {subheader}
             </Typography>
         </CardContent>

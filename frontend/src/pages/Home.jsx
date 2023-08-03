@@ -32,9 +32,9 @@ const Home = () => {
   return (
     <>
       <Navbar/>
-      <Box sx={{minHeight: "100vh", bgcolor: 'blue'}}>
-      <Typography variant='h5' sx={{ pt: 2, pb: 4, color: 'primary.themewhite', fontWeight: 'bold'}}> Home page  </Typography>
-          <Container sx={{pt:5, pb:5, height: "60vh", width: '50%', bgcolor: 'red'}}>
+      <Box sx={{minHeight: "100vh", bgcolor: 'primary.greenLight'}}>
+      <Typography variant='h5' sx={{ pt: 2, color: 'primary.themewhite', fontWeight: 'bold'}}> Home page  </Typography>
+          <Container sx={{pt:4, pb:5, height: "60vh", width: '100%'}}>
             <Box sx={{flexGrow:1}}>
               <Grid container spacing={{xs:2, md:3}} columns={{xs:4, sm:8, md:12}}>
                 
