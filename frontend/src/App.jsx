@@ -10,6 +10,7 @@ import CreateQuiz from './admin/CreateQuiz';
 import AdminDashboard from './admin/AdminDashboard';
 import SignIn from './pages/SignIn';
 import store from './redux/store'
+import SignUp from './pages/SignUp';
 
 
 const App = () =>{
@@ -22,6 +23,7 @@ const App = () =>{
             <Routes>
               <Route path='/' element={<Home/>}></Route>
               <Route path='/signin' element={<SignIn/>}></Route>
+              <Route path='/signup' element={<SignUp/>}></Route>
               <Route path='/admin/quiz/create' element={<CreateQuiz/>}></Route>
               <Route path='/admin/dashboard' element={<AdminDashboard/>}></Route>
             </Routes>

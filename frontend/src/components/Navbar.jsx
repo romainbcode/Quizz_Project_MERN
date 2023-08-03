@@ -123,7 +123,10 @@ function ResponsiveAppBar() {
                     <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/admin/quiz/create">Creat post admin</Link></Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/signin">Log In</Link></Typography>
+                    <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/signin">LogIn</Link></Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/signup">SignUp</Link></Typography>
                 </MenuItem>
           </Box>
 

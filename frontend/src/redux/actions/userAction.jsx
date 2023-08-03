@@ -28,8 +28,7 @@ export const userSignInAction = (user) => async (dispatch) =>{
     });
     try{
         const {data} = await axios.post('/api/signin', user);
-        console.log("data", data)
-        //localStorage.setItem('userInfo', JSON.stringify(data))
+        localStorage.setItem('userInfo', JSON.stringify(data))
         dispatch({
             type: USER_SIGNIN_SUCCESS,
             payload: data
@@ -67,7 +66,7 @@ export const userLogoutAction = () => async (dispatch) =>{
         type: USER_LOGOUT_REQUEST
     });
     try{
-        //localStorage.removeItem('userInfo');
+        localStorage.removeItem('userInfo');
         const {data} = await axios.get('/api/logout')
         dispatch({
             type: USER_LOGOUT_SUCCESS,

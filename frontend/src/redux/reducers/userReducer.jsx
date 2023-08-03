@@ -2,6 +2,7 @@ import { USER_LOAD_FAIL, USER_LOAD_REQUEST, USER_LOAD_RESET, USER_LOAD_SUCCESS, 
 
 // sign up reducer
 export const userReducerSignUp = (state = {}, action) => {
+
     switch (action.type) {
         case USER_SIGNUP_REQUEST:
             return { loading: true }
