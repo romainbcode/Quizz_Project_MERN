@@ -62,7 +62,7 @@ const SignUp = () => {
             <Form>
                 <Box sx={{height: '100vh', bgcolor: "primary.greenLight",display: "flex", justifyContent: 'center', pt: 10}}>
                     <Box sx={{ height: '60vh', width: '40%', display: "flex", alignItems: "center", justifyContent: "center", bgcolor: "primary.mainGreenDark", borderRadius: '10%', boxShadow: '0 3px 10px #000' }}>
-                        <Box className='form_style border-style' >
+                        <Box className='form_style border-style' sx={{width: '70%'}} >
                             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
                                 <Avatar sx={{ m: 1, bgcolor: "primary.greenDark", mb: 3 }}>
                                     <LockClockOutlined />

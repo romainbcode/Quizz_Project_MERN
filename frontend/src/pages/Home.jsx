@@ -32,7 +32,7 @@ const Home = () => {
   return (
     <>
       <Navbar/>
-      <Box sx={{minHeight: "100vh", bgcolor: 'primary.greenLight'}}>
+      <Box sx={{minHeight: "100vh"}}>
       <Typography variant='h5' sx={{ pt: 2, color: 'primary.themewhite', fontWeight: 'bold'}}> Home page  </Typography>
           <Container sx={{pt:4, pb:5, height: "60vh", width: '100%'}}>
             <Box sx={{flexGrow:1}}>
