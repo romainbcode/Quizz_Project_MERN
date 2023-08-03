@@ -21,7 +21,6 @@ import Navbar from '../components/Navbar';
 
 const CreateQuiz = () => {
     const [currentValue, setCurrentValue] = useState(0)
-    const [isChecked, setIsChecked] = useState(false);
 
     const initialValues = {
         title: '',
@@ -40,8 +39,8 @@ const CreateQuiz = () => {
     };
 
     const onSubmit = (values) =>{
-        createNewQuiz(values);
-        //alert(JSON.stringify(values, null, 2));
+        //createNewQuiz(values);
+        alert(JSON.stringify(values, null, 2));
         console.log("clique")
         //actions.resetForm();
     }
@@ -97,29 +96,40 @@ const CreateQuiz = () => {
             const {values} = formik;
             return(
                 <Form>
-                    <Box sx={{ bgcolor: "white", padding: "20px 100px" ,height: '100vh' }}>
-                        <Typography variant='h5' sx={{ pb: 4}}> Create Quiz  </Typography>
+                    <Box sx={{ bgcolor: "primary.greenLight", height:'100vh', width:'100%', display: "flex", justifyContent: 'center', pt: 3}}>
+                    <Box sx={{ bgcolor: "primary.mainGreenDark",height: '90%', width:'85%', padding: 5, borderRadius: '5%', boxShadow: '0 3px 10px #000' }}>
+                        <Typography variant='h5' sx={{ pb: 4, color: 'primary.themewhite'}}> Create Quiz  </Typography>
                         <Box sx={{mt:1}} component="form">
                         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
                             <Field
-                                sx={{ mb: 3, width: '50%' }}
+                                sx={{ mb: 3, width: '50%',
+                                fieldset: { borderColor: "primary.themewhite" }
+                             }}
                                 autoComplete="off"
                                 name="title"
                                 placeholder="title"
                                 InputLabelProps={{
                                     shrink: true,
+                                    sx: {
+                                        color: "primary.themewhite"
+                                    }
                                 }}
                                 label="Quiz title"
                                 value={values.title}
                                 as={TextField}
                             />
                             <Field
-                                sx={{ mb: 3, width: '50%'}}
+                                sx={{ mb: 3, width: '50%',
+                                fieldset: { borderColor: "primary.themewhite" }
+                            }}
                                 autoComplete="off"
                                 name="subheader"
                                 placeholder="subheader"
                                 InputLabelProps={{
                                     shrink: true,
+                                    sx: {
+                                        color: "primary.themewhite"
+                                    }
                                 }}
                                 label="Quiz subheader"
                                 as={TextField}
@@ -127,12 +137,17 @@ const CreateQuiz = () => {
                             
                         </Stack>
                         <Field
-                            sx={{ mb: 3, width: '100%'}}
+                            sx={{ mb: 3, width: '100%',
+                            fieldset: { borderColor: "primary.themewhite" }
+                        }}
                             id="questionAnswer.question"
                             name='questionAnswer.question'
                             placeholder="Quiz question"
                             InputLabelProps={{
                                 shrink: true,
+                                sx: {
+                                    color: "primary.themewhite"
+                                }
                             }}
                             label="Quiz question"
                             as={TextField}
@@ -149,11 +164,16 @@ const CreateQuiz = () => {
                             {values.questionAnswer.answer.map((TestCase, index) => (
                             <div className="formContainer " style={{display:'flex',flexDirection:'row', alignItems:'center', marginBottom: '15px'}} key={index}>
                                 <Field
-                                    sx={{width: '85%'}}
+                                    sx={{width: '85%',
+                                    fieldset: { borderColor: "primary.themewhite" }
+                                }}
                                     name={`questionAnswer.answer.${index}.answerText`}
                                     placeholder="Answer text"
                                     InputLabelProps={{
                                         shrink: true,
+                                        sx: {
+                                            color: "primary.themewhite"
+                                        }
                                     }}
                                     label={`Answer : ${index}`}
                                     as={TextField}
@@ -161,16 +181,17 @@ const CreateQuiz = () => {
                                 <Box style={{display:'flex',flexDirection:'column', marginLeft: 10}}>
                                     <Box style={{display:'flex',flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
                                         <Field
-                                            sx={{height:'20px', width:'20px', alignItems:'center', mr:1}}
+                                            sx={{height:'20px', width:'20px', alignItems:'center', mr:1,
+                                            color: 'primary.themewhite'
+                                        }}
                                             name={`questionAnswer.answer.${index}.stateAnswer`}
                                             as={Checkbox}
-                                            onChange={() => setIsChecked((prev) => !prev)}
                                         />
-                                        {isChecked ? "Selected" : "Unchecked"}
+                                        True/False
                                     </Box>
                                     
                                     <Button variant="contained" color="error"
-                                        sx={{mt:0.5, width: '100%', height: '25px'}}
+                                        sx={{mt:0.5, width: '100%', height: '25px', }}
                                         onClick={() => arrayHelpers.remove(index)}
                                         startIcon={<DeleteIcon />}
                                     >
@@ -195,7 +216,7 @@ const CreateQuiz = () => {
                         </div>
                         )}
                     />
-                    <Box border='2px dashed blue' sx={{ p: 1}}>
+                    <Box border='2px dashed white' sx={{ p: 1}}>
                         <Dropzone
                             acceptedFiles=".jpg,.jpeg,.png"
                             multiple={false}
@@ -209,8 +230,8 @@ const CreateQuiz = () => {
                                             formik.setFieldValue('image', reader.result)
                                         }
                                     })
+                                }
                             }
-                        }
                             
                         >
                             {({ getRootProps, getInputProps, isDragActive }) => (
@@ -218,13 +239,13 @@ const CreateQuiz = () => {
                                     {...getRootProps()}
 
                                     p="1rem"
-                                    sx={{ "&:hover": { cursor: "pointer" }, bgcolor: isDragActive ? "#cceffc" : "#fafafa" }}
+                                    sx={{ "&:hover": { cursor: "pointer" }, bgcolor: isDragActive ? "primary.mainGreenDark" : "primary.mainGreenLight" }}
                                 >
                                     <input name="banner" {...getInputProps()} />
                                     {
                                         isDragActive ? (
                                             <>
-                                                <p style={{ textAlign: "center" }}><CloudUploadIcon sx={{ color: "primary.main", mr: 2 }} /></p>
+                                                <p style={{ textAlign: "center" }}><CloudUploadIcon sx={{ color: "primary.themewhite", mr: 2 }} /></p>
                                                 <p style={{ textAlign: "center", fontSize: "12px" }}> Drop here!</p>
 
                                             </>
@@ -233,7 +254,7 @@ const CreateQuiz = () => {
                                             values.image === null ?
 
                                                 <>
-                                                    <p style={{ textAlign: "center" }}><CloudUploadIcon sx={{ color: "primary.main", mr: 2 }} /></p>
+                                                    <p style={{ textAlign: "center" }}><CloudUploadIcon sx={{ color: "primary.themewhite", mr: 2 }} /></p>
                                                     <p style={{ textAlign: "center", fontSize: "12px" }}>Drag and Drop image  here or click to choose</p>
                                                 </> :
 
@@ -253,6 +274,7 @@ const CreateQuiz = () => {
                             <Button sx={{mt:2}}type='submit' variant="contained" color="success">
                                 Add this quiz
                             </Button>
+                            </Box>
                             </Box>
                             
                         </Form>

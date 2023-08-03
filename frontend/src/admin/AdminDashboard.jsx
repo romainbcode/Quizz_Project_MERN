@@ -9,6 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { toast } from 'react-toastify';
+import Navbar from '../components/Navbar';
+
 
 
 const AdminDashboard = () => {
@@ -100,6 +102,7 @@ const AdminDashboard = () => {
 
     return (
         <Box >
+        <Navbar/>
 
             <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
                 Posts
