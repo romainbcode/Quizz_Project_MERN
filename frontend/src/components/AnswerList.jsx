@@ -1,36 +1,18 @@
 import * as React from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
+import { Box } from '@mui/material';
 
 const AnswerList = ({ question, answer }) => {
     return (
         <>
-            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                <ListItem alignItems="flex-start">
-                    
-                    <ListItemText
-                        primary={question}
-                        secondary={
-                            <>
-                                <Typography
-                                    sx={{ display: 'inline' }}
-                                    variant="h1"
-                                    color="red"
-                                >
-                                    {answer}
-                                </Typography>
-                            </>
-                        }
-                    />
-                </ListItem>
-
-            </List>
-
+            <Box className='formContainer'>
+                <h1>{question}</h1>
+                {answer.map((ans, index)=>(
+                    <div className='ok'>
+                        <h1>{ans.answerText}</h1>
+                        
+                    </div>
+                ))}
+            </Box>
         </>
     );
 }

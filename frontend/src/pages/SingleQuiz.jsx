@@ -33,7 +33,8 @@ const SinglePost = () => {
     const [subheader, setSubheader] = useState('');
     const [image, setImage] = useState('');
     const [createdAt, setCreatedAt] = useState('');
-    const [answer, setAnswer] = useState([])
+    const [answer, setAnswer] = useState([]);
+    const [questionAnswer, setQuestionAnswer] = useState([])
     const [loading, setLoading] = useState(false);
 
     const { id } = useParams();
@@ -47,8 +48,10 @@ const SinglePost = () => {
             setSubheader(data.quiz.subheader);
             setImage(data.quiz.image.url);
             setCreatedAt(data.quiz.createdAt);
-            setAnswer(data.quiz.questionAnswer.answer)            
+            setQuestionAnswer(data.quiz.questionAnswer) 
+            console.log("before", questionAnswer)          
             setLoading(false);
+            console.log("after", questionAnswer)
 
 
         } catch (error) {
@@ -58,11 +61,7 @@ const SinglePost = () => {
 
     useEffect(() => {
         displaySinglePost();
-        if(answer.length>0){
-            console.log("answer", answer)
-
-        }
-        
+        console.log("useEffect", questionAnswer)
     }, [])
     
     return (
@@ -89,20 +88,15 @@ const SinglePost = () => {
                                     </Typography>
                                     <Divider variant="inset" />
                                     {
-                                        answer.length === 0 ? 'Any answer' :
-                                            <Typography variant='h5' sx={{ pt: 3, mb: 2 }}>
-                                                Answer : 
-                                                {answer[0].answerText}
-                                            </Typography>
+                                        questionAnswer.length === 0 ? 'Any answer' :
+                                            questionAnswer && questionAnswer.map((an, index)=>(
+                                                <AnswerList question={an.question} answer={an.answer}/>
+                                            ))
                                     }
                                     {
-                                      /*  
-                                    answer && answer.map((an, index)=>(
-                                        <Grid item xs={2} sm={4} md={4} key={index} >
-                                            {an}
-                                        </Grid>
-                                    ))
-                                        */
+                                      
+                                    
+                                        
                                     }
 
 
