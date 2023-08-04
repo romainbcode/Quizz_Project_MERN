@@ -21,7 +21,7 @@ const quizSchema = new mongoose.Schema({
         url: String,
         public_id: String,
     },
-    questionAnswer: {
+    questionAnswer: [{
         question: {
             type: String,
             required: [true, "You must add a question"]
@@ -39,7 +39,7 @@ const quizSchema = new mongoose.Schema({
             type: ObjectId,
             ref: "User"
         }
-    },
+    }],
     scores: [{ type: ObjectId, ref: "User" }],
     likes: [{ type: ObjectId, ref: "User" }],
 }, {timestamps: true})

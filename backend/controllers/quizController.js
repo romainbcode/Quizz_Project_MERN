@@ -6,13 +6,15 @@ exports.createQuiz = async(req, res, next)=>{
     const {image} = req.body;
     try{
         //upload image in cloudinary
-        const result = await cloudinary.uploader.upload(image, {
+        /*const result = await cloudinary.uploader.upload(image, {
             folder: "quizs",
             width: 1200,
             crop: "scale"
-        })
+        })*/
 
-        const quiz = await Quiz.create({
+        const quiz = await Quiz.create(
+            req.body
+            /*
             title : req.body.title,
             subheader: req.body.subheader,
             //postedBy: req.user._id,
@@ -20,15 +22,15 @@ exports.createQuiz = async(req, res, next)=>{
                 public_id: result.public_id,
                 url: result.secure_url
             },
-            questionAnswer:{
+            questionAnswer:[{
                 question : req.body.questionAnswer.question,
                 answer: req.body.questionAnswer.answer,
                 //postedBy: req.user._id,
-            },
+            }],
             //scores: ["64c552533dfbf19cc42972a8"],
-            //likes: ["64c552533dfbf19cc42972a8"]
+            //likes: ["64c552533dfbf19cc42972a8"]*/
 
-        })
+        )
 
         res.status(201).json({
             success: true,
@@ -42,7 +44,7 @@ exports.createQuiz = async(req, res, next)=>{
 //Show all quizs
 exports.showQuizs = async(req, res, next)=>{
     try{
-        const quizs = await Quiz.find().sort({createdAt : -1}).populate('postedBy', 'name')
+        const quizs = await Quiz.find().sort({createdAt : -1}).populate('postedBy', 'username')
         res.status(201).json({
             success: true,
             quizs
@@ -55,7 +57,7 @@ exports.showQuizs = async(req, res, next)=>{
 //show single quiz by id
 exports.showSingleQuiz = async(req, res, next)=>{
     try{
-        const quiz = await Quiz.findById(req.params.id)
+        const quiz = await Quiz.findById(req.params.id).populate('postedBy', 'username')
         res.status(200).json({
             success: true,
             quiz

@@ -10,6 +10,6 @@ router.post('/quiz/create',createQuiz);// isAuthenticated, isAdmin, createQuiz);
 //Show all quizs route
 router.get('/quizs/show', showQuizs);
 //Show on quiz route
-router.get('quiz/show/:id', showSingleQuiz)
+router.get('/quiz/show/:id', showSingleQuiz)
 
 module.exports = router;
