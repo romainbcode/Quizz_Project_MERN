@@ -14,11 +14,14 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import SchoolIcon from '@mui/icons-material/School';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { userLogoutAction } from '../redux/actions/userAction';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+    const dispatch = useDispatch();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -36,6 +39,14 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const logOutUser = async () =>{
+    dispatch(userLogoutAction);
+    window.location.reload(true);
+    setTimeout(()=>{
+        navigate('/')
+    },500)
+  }
 
   return (
     <AppBar position="static" sx={{bgcolor: 'primary.mainGreenDark'}}>
@@ -127,6 +138,9 @@ function ResponsiveAppBar() {
                 </MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>
                     <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/signup">SignUp</Link></Typography>
+                </MenuItem>
+                <MenuItem onClick={logOutUser}>
+                    <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/signin">Logout</Link></Typography>
                 </MenuItem>
           </Box>
 

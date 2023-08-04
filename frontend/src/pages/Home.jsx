@@ -42,8 +42,9 @@ const Home = () => {
                 {
                     isloading ? <>Loading....</> : 
                     quizs && quizs.map((quiz, index) =>(
-                        <Grid item xs={2} sm={4} md={4} key={index}>
+                        <Grid item xs={2} sm={4} md={4} key={index} >
                         <PostCard
+                            id={quiz._id}
                             title={quiz.title}
                             subheader={quiz.subheader}
                             image={quiz.image ? quiz.image.url : ''}

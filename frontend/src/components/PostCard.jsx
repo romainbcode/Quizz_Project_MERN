@@ -22,12 +22,15 @@ import { toast } from 'react-toastify';
 
 
 export default function PostCard ({
+    id,
     title,
     subheader,
     image, 
     }) {
 
   return (
+    <Link to={`quiz/show/${id}`} style={{textDecoration: 'none'}}>
+
     <Card sx={{ maxWidth: 350, p : 2, color: 'primary.themewhite', bgcolor: 'primary.mainGreenDark', 
     borderRadius: '10%', boxShadow: '0 3px 10px #000', padding: '20px, 20px', height: 300
     }}>
@@ -35,9 +38,6 @@ export default function PostCard ({
         <CardMedia
             component="img"
             sx={{ height: '85%', borderRadius: '20px',transitionDuration: '1s', "&:hover": { cursor: "pointer", height: "55%", transitionDuration: '1s' }}}
-         
-
-        
             image={image}
         />
         <Typography gutterBottom variant="h5" component="div">
@@ -57,5 +57,6 @@ export default function PostCard ({
             </Box>
         </CardActions>
     </Card>
+    </Link>
   );
 }
