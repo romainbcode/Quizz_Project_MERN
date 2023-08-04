@@ -38,11 +38,9 @@ const CreateQuiz = () => {
     };
 
     const onSubmit = (values) =>{
-        //createNewQuiz(values);
-        alert(JSON.stringify(values, null, 5));
-        console.log(values)
-        console.log("clique")
-        //actions.resetForm();
+        createNewQuiz(values);
+        //alert(JSON.stringify(values, null, 5));
+        actions.resetForm();
     }
 
     const validationSchema = yup.object({/*
@@ -196,6 +194,16 @@ const CreateQuiz = () => {
                                                                     label={`Question : ${index}, Answer : ${index2}`}
                                                                     as={TextField}
                                                                 />
+                                                                <Box style={{display:'flex',flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+                                                                    <Field
+                                                                        sx={{height:'20px', width:'20px', alignItems:'center', mr:1,
+                                                                        color: 'primary.themewhite'
+                                                                    }}
+                                                                        name={`questionAnswer.${index}.answer.${index2}.stateAnswer`}
+                                                                        as={Checkbox}
+                                                                    />
+                                                                    True/False
+                                                                </Box>
                                                                 <Box style={{marginLeft: 10}}>
                                                                     <Button variant="contained" color="error"
                                                                         sx={{mt:0.5, width: '100%', height: '75%' }}
