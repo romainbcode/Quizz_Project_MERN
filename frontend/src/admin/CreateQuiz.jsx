@@ -100,7 +100,7 @@ const CreateQuiz = () => {
             return(
                 <Form>
                     <Box sx={{ bgcolor: "primary.greenLight", height:'100vh', width:'100%', display: "flex", justifyContent: 'center', pt: 3}}>
-                    <Box sx={{ bgcolor: "primary.mainGreenDark",height: '90%', width:'85%', padding: 5, borderRadius: '5%', boxShadow: '0 3px 10px #000' }}>
+                    <Box sx={{ bgcolor: "primary.mainGreenDark",height: 'fit-content', width:'85%', mb:2, padding: 5, borderRadius: '10px', boxShadow: '0 3px 10px #000' }}>
                         <Typography variant='h5' sx={{ pb: 4, color: 'primary.themewhite'}}> Create Quiz  </Typography>
                         <Box sx={{mt:1}} component="form">
                             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
@@ -145,7 +145,7 @@ const CreateQuiz = () => {
                             id="questionAnswer"
                             value={values.questionAnswer}
                             render={(arrayQuestion)=>(
-                                <div className='formContainer'>
+                                <Box className='formContainer' sx={{backgroundColor: 'primary.mainGreenLight', padding: 3, mb: 2, borderRadius: '10px', boxShadow: '0 3px 10px #000'}}>
                                     {values.questionAnswer.map((arrayMapQuestion, index)=>(
                                         <div className="formContainer" style={{display:'flex',flexDirection:'column', alignItems:'center', marginBottom: '15px'}} key={index}>
                                             <div style={{width: '100%', display: 'flex', flexDirection: 'row'}}>
@@ -239,13 +239,13 @@ const CreateQuiz = () => {
                                     >
                                     Add a question
                                     </Button>
-                                </div>
+                                </Box>
                             )}
                         />
                         
 
 
-                    <Box border='2px dashed white' sx={{ p: 1}}>
+                    <Box border='2px dashed white' sx={{ p: 1, borderRadius: '10px', boxShadow: '0 3px 10px #000'}}>
                         <Dropzone
                             acceptedFiles=".jpg,.jpeg,.png"
                             multiple={false}
