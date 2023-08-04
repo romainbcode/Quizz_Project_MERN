@@ -26,21 +26,21 @@ const CreateQuiz = () => {
         title: '',
         subheader: '',
         image: null,
-        questionAnswer:{
+        questionAnswer:[{
             question:'',
             answer:[
                 {
                     answerText : '',
                     stateAnswer : false
-                }
-                
+                } 
             ]
-        }
+        }]
     };
 
     const onSubmit = (values) =>{
         //createNewQuiz(values);
-        alert(JSON.stringify(values, null, 2));
+        alert(JSON.stringify(values, null, 5));
+        console.log(values)
         console.log("clique")
         //actions.resetForm();
     }
@@ -54,21 +54,24 @@ const CreateQuiz = () => {
             .string('Add text content')
             .min(10, 'text content should have a minimum of 10 characters ')
             .required('text content is required'),
-        questionAnswer : yup.object({
-            question: yup
-            .string('Add a question')
-            .min(10, 'Question should have a minimum of 10 characters '),
-            answer : yup.array(
-                yup.object({
-                    answerText: yup
-                    .string('Add an answer')
-                    .min(10, 'Answer should have a minimum of 10 characters '),
-                    stateAnswer: yup
-                    .boolean('Declare False or True')
-                })
-            ).min(2, 'You must add a minimum of 2 answers')
-             .max(4, 'You must add a maximum of 4 answers')
-        }) */     
+        questionAnswer : yup.array(
+            yup.object({
+                question: yup
+                .string('Add a question')
+                .min(10, 'Question should have a minimum of 10 characters '),
+                answer : yup.array(
+                    yup.object({
+                        answerText: yup
+                        .string('Add an answer')
+                        .min(10, 'Answer should have a minimum of 10 characters '),
+                        stateAnswer: yup
+                        .boolean('Declare False or True')
+                    })
+                )
+                .min(2, 'You must add a minimum of 2 answers')
+                .max(4, 'You must add a maximum of 4 answers')
+            })
+        )*/
     });
     
     const createNewQuiz = async (values) => {
@@ -100,122 +103,148 @@ const CreateQuiz = () => {
                     <Box sx={{ bgcolor: "primary.mainGreenDark",height: '90%', width:'85%', padding: 5, borderRadius: '5%', boxShadow: '0 3px 10px #000' }}>
                         <Typography variant='h5' sx={{ pb: 4, color: 'primary.themewhite'}}> Create Quiz  </Typography>
                         <Box sx={{mt:1}} component="form">
-                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
-                            <Field
-                                sx={{ mb: 3, width: '50%',
-                                fieldset: { borderColor: "primary.themewhite" }
-                             }}
-                                autoComplete="off"
-                                name="title"
-                                placeholder="title"
-                                InputLabelProps={{
-                                    shrink: true,
-                                    sx: {
-                                        color: "primary.themewhite"
-                                    }
-                                }}
-                                label="Quiz title"
-                                value={values.title}
-                                as={TextField}
-                            />
-                            <Field
-                                sx={{ mb: 3, width: '50%',
-                                fieldset: { borderColor: "primary.themewhite" }
-                            }}
-                                autoComplete="off"
-                                name="subheader"
-                                placeholder="subheader"
-                                InputLabelProps={{
-                                    shrink: true,
-                                    sx: {
-                                        color: "primary.themewhite"
-                                    }
-                                }}
-                                label="Quiz subheader"
-                                as={TextField}
-                            />
-                            
-                        </Stack>
-                        <Field
-                            sx={{ mb: 3, width: '100%',
-                            fieldset: { borderColor: "primary.themewhite" }
-                        }}
-                            id="questionAnswer.question"
-                            name='questionAnswer.question'
-                            placeholder="Quiz question"
-                            InputLabelProps={{
-                                shrink: true,
-                                sx: {
-                                    color: "primary.themewhite"
-                                }
-                            }}
-                            label="Quiz question"
-                            as={TextField}
-                        />
-                        </Box>
-                        
-                        <FieldArray
-                        type="questionAnswer.answer"
-                        name="questionAnswer.answer"
-                        id="questionAnswer.answer"
-                        value={values.questionAnswer.answer}
-                        render={(arrayHelpers) => (
-                        <div className="formContainer">
-                            {values.questionAnswer.answer.map((TestCase, index) => (
-                            <div className="formContainer " style={{display:'flex',flexDirection:'row', alignItems:'center', marginBottom: '15px'}} key={index}>
+                            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
                                 <Field
-                                    sx={{width: '85%',
+                                    sx={{ mb: 3, width: '50%',
                                     fieldset: { borderColor: "primary.themewhite" }
                                 }}
-                                    name={`questionAnswer.answer.${index}.answerText`}
-                                    placeholder="Answer text"
+                                    autoComplete="off"
+                                    name="title"
+                                    placeholder="title"
                                     InputLabelProps={{
                                         shrink: true,
                                         sx: {
                                             color: "primary.themewhite"
                                         }
                                     }}
-                                    label={`Answer : ${index}`}
+                                    label="Quiz title"
+                                    value={values.title}
                                     as={TextField}
                                 />
-                                <Box style={{display:'flex',flexDirection:'column', marginLeft: 10}}>
-                                    <Box style={{display:'flex',flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-                                        <Field
-                                            sx={{height:'20px', width:'20px', alignItems:'center', mr:1,
-                                            color: 'primary.themewhite'
-                                        }}
-                                            name={`questionAnswer.answer.${index}.stateAnswer`}
-                                            as={Checkbox}
-                                        />
-                                        True/False
-                                    </Box>
-                                    
-                                    <Button variant="contained" color="error"
-                                        sx={{mt:0.5, width: '100%', height: '25px', }}
-                                        onClick={() => arrayHelpers.remove(index)}
-                                        startIcon={<DeleteIcon />}
-                                    >
-                                    Delete
-                                    </Button>
-                                </Box> 
-                                
-                            </div>
-                            ))}
-
-                
-                            <Button variant="contained" 
-                                onClick={() => {
-                                    arrayHelpers.push({answerText: '',stateAnswer: false})
+                                <Field
+                                    sx={{ mb: 3, width: '50%',
+                                    fieldset: { borderColor: "primary.themewhite" }
                                 }}
-                                sx={{width: '25%', height: '50%', mb:2}}
-                                endIcon={<AddIcon />}
-                            >
-                                Add an answer
-                            </Button>
-                            
-                        </div>
-                        )}
-                    />
+                                    autoComplete="off"
+                                    name="subheader"
+                                    placeholder="subheader"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                        sx: {
+                                            color: "primary.themewhite"
+                                        }
+                                    }}
+                                    label="Quiz subheader"
+                                    as={TextField}
+                                />                              
+                            </Stack>
+                        </Box>
+                        <FieldArray
+                            type="questionAnswer"
+                            name="questionAnswer"
+                            id="questionAnswer"
+                            value={values.questionAnswer}
+                            render={(arrayQuestion)=>(
+                                <div className='formContainer'>
+                                    {values.questionAnswer.map((arrayMapQuestion, index)=>(
+                                        <div className="formContainer" style={{display:'flex',flexDirection:'column', alignItems:'center', marginBottom: '15px'}} key={index}>
+                                            <div style={{width: '100%', display: 'flex', flexDirection: 'row'}}>
+                                                <Field
+                                                    sx={{width: '85%', fieldset: { borderColor: "primary.themewhite"} }}
+                                                    name={`questionAnswer.${index}.question`}
+                                                    placeholder="Question text"
+                                                    InputLabelProps={{
+                                                        shrink: true,
+                                                        sx: {
+                                                            color: "primary.themewhite"
+                                                        }
+                                                    }}
+                                                    label={`Question : ${index}`}
+                                                    as={TextField}
+                                                />
+                                                <Box style={{display:'flex',flexDirection:'column', marginLeft: 10}}>
+                                                    <Button variant="contained" color="error"
+                                                        sx={{mt:0.5, width: '100%', height: '75%' }}
+                                                        onClick={() => arrayQuestion.remove(index)}
+                                                        startIcon={<DeleteIcon />}
+                                                    >
+                                                    Delete this question
+                                                    </Button>
+                                                </Box> 
+                                            </div>
+                                            
+                                        
+                                            <FieldArray
+                                            type={`questionAnswer.${index}.answer`}
+                                            name={`questionAnswer.${index}.answer`}
+                                            id={`questionAnswer.${index}.answer`}
+                                            value={values.questionAnswer[index].answer}
+                                            render={(arrayAnswer)=>(
+                                                <div className='formContainer' style={{width: '100%'}}>
+                                                    {values.questionAnswer[index].answer.map((TestCase2, index2) => (
+                                                            <div style={{width: '80%', display: 'flex', flexDirection: 'row', float: 'right'}}>
+                                                                <Field
+                                                                    sx={{width: '85%', fieldset: { borderColor: "primary.themewhite"} }}
+                                                                    name={`questionAnswer.${index}.answer.${index2}.answerText`}
+                                                                    placeholder="Answer text"
+                                                                    InputLabelProps={{
+                                                                        shrink: true,
+                                                                        sx: {
+                                                                            color: "primary.themewhite"
+                                                                        }
+                                                                    }}
+                                                                    label={`Question : ${index}, Answer : ${index2}`}
+                                                                    as={TextField}
+                                                                />
+                                                                <Box style={{marginLeft: 10}}>
+                                                                    <Button variant="contained" color="error"
+                                                                        sx={{mt:0.5, width: '100%', height: '75%' }}
+                                                                        onClick={() => arrayAnswer.remove(index2)}
+                                                                        startIcon={<DeleteIcon />}
+                                                                    >
+                                                                    Delete this answer
+                                                                    </Button>
+                                                                </Box> 
+                                                            </div>
+                                                    ))}
+                                                    <Button variant="contained" 
+                                                        onClick={() => {
+                                                            arrayAnswer.push({answerText: '',stateAnswer: false})
+                                                        }}
+                                                        sx={{width: '25%', height: '50%', mb:2}}
+                                                        endIcon={<AddIcon />}
+                                                    >
+                                                        Add an answer
+                                                    </Button>
+                                                </div>
+                                                    
+                                            )}
+                                            
+                                            />
+
+                                        </div>
+
+                                        
+                                    ))}
+                                    <Button variant="contained" 
+                                        onClick={() => {
+                                            arrayQuestion.push({question: '',
+                                            answer:[{
+                                                answerText : '',
+                                                stateAnswer : false
+                                            }]
+                                        })}}
+                                        sx={{width: '25%', height: '50%', mb:2}}
+                                        endIcon={<AddIcon />}
+                                    >
+                                    Add a question
+                                    </Button>
+                                </div>
+                            )}
+                        />
+                        
+
+
                     <Box border='2px dashed white' sx={{ p: 1}}>
                         <Dropzone
                             acceptedFiles=".jpg,.jpeg,.png"
