@@ -67,45 +67,33 @@ const SinglePost = () => {
     return (
         <>
             <Navbar />
-            <Box sx={{display: 'flex', justifyContent: 'center', pt: 4, pb: 4, minHeight: "100vh" }}>
+            <Box sx={{display: 'flex', justifyContent:'center', width: '100%', height:'100%', pt:2}}>
                 {
                     loading ? <p>loading....</p> :
-                        <>
-                            <Card sx={{ maxWidth: 1000, height: '100%' }}>
-                                <CardHeader
-                                    
-                                    
-                                    title={title}
-                                />
-                                    created by : 
-                                <CardHeader
-                                    usernameCreater={usernameCreater}
-                                />
-                                
-                                <CardContent>
-                                    <Typography variant="body2" color="text.secondary">
+                        <Box sx={{display: 'flex', justifyContent:'center', width: '90%'}}>
+                            <Card sx={{height: '100%', width: '100%', bgcolor:'transparent', boxShadow:'none'}}>
+                                <Box sx={{color:'primary.themewhite', bgcolor: "primary.mainGreenDark", borderRadius: '20px', boxShadow: '0 3px 10px #000', m:2 }}>
+                                    <CardHeader
+                                        title={title}
+                                    />
+                                    <Typography variant="body2" sx={{pb:2}}>
                                         <Box component='span' dangerouslySetInnerHTML={{ __html: subheader }}></Box>
                                     </Typography>
-                                    <Divider variant="inset" />
+                                </Box>
+                                
+                                <CardContent sx={{mb:3, mt:3}}>
                                     {
                                         questionAnswer.length === 0 ? 'Any answer' :
                                             questionAnswer && questionAnswer.map((an, index)=>(
-                                                <AnswerList question={an.question} answer={an.answer}/>
+                                                <Box sx={{bgcolor:"primary.mainGreenDark", borderRadius: '20px', boxShadow: '0 3px 10px #000'}}>
+                                                    <AnswerList question={an.question} answer={an.answer}
+                                                    />
+                                                </Box>
                                             ))
                                     }
-                                    {
-                                      
-                                    
-                                        
-                                    }
-
-
-
                                 </CardContent>
-
                             </Card>
-
-                        </>
+                        </Box>
                 }
             </Box>
         </>
