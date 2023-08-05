@@ -22,6 +22,7 @@ import { useSelector } from 'react-redux';
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 import { toast } from 'react-toastify';
 import AnswerList from '../components/AnswerList';
+import Loader from '../components/Loader'
 
 const SinglePost = () => {
     
@@ -69,7 +70,7 @@ const SinglePost = () => {
             <Navbar />
             <Box sx={{display: 'flex', justifyContent:'center', width: '100%', height:'100%', pt:2}}>
                 {
-                    loading ? <p>loading....</p> :
+                    loading ? <Loader/> :
                         <Box sx={{display: 'flex', justifyContent:'center', width: '90%'}}>
                             <Card sx={{height: '100%', width: '100%', bgcolor:'transparent', boxShadow:'none'}}>
                                 <Box sx={{color:'primary.themewhite', bgcolor: "primary.mainGreenDark", borderRadius: '20px', boxShadow: '0 3px 10px #000', m:2 }}>
