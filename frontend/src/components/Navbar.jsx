@@ -42,7 +42,7 @@ function ResponsiveAppBar() {
   };
 
   const logOutUser = async () =>{
-    dispatch(userLogoutAction);
+    dispatch(userLogoutAction());
     //dispatch(userSignInAction({email: 'rom@gmail.com', password: 'Rom@1234'}))
     window.location.reload(true);
     setTimeout(()=>{
