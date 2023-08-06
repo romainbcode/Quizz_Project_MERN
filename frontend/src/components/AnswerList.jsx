@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Box, Typography, Button } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { green } from '@mui/material/colors';
-
+import { Link } from 'react-router-dom';
+import { QuestionAnswer } from '@mui/icons-material';
 
 const AnswerList = ({ question, answer }) => {
     const [loading, setLoading] = useState(false);
@@ -13,13 +14,9 @@ const AnswerList = ({ question, answer }) => {
         answer.map(ans => ans.stateAnswer)
     );
 
-      const clickHandler = (ans, index) => {
-        // Mettre à jour l'état de la réponse en inversant sa valeur
-        const newAnswerState = [...answerState];
-        newAnswerState[index] = !newAnswerState[index];
-        setAnswerState(newAnswerState);
-      };
+    
 
+      
     const clickHandlers = (mess1, message) => {
 		console.log(mess1, message);
         if(mess1.stateAnswer){
@@ -30,6 +27,7 @@ const AnswerList = ({ question, answer }) => {
             setLoading(true)
         }
         setLoading(true)
+        
 	}
     return (
         <>
@@ -44,7 +42,9 @@ const AnswerList = ({ question, answer }) => {
                                 border: '3px solid',
                                 borderColor: loading && answerState[index] ? 'green' : 'transparent', // Utilisation de l'état pour définir la couleur de la bordure
                             }}
-                            onClick={() => clickHandlers(ans, index)}
+                            onClick={() => clickHandlers(ans, index)
+                            }
+                            
                         >
                         <h2>{ans.answerText}</h2>
                         </Button>

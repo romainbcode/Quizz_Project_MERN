@@ -308,7 +308,7 @@ const CreateQuiz = () => {
                                     )}
                                 </Dropzone>
                             </Box>
-                            <Button sx={{mt:2}}type='submit' variant="contained" color="success">
+                            <Button sx={{mt:2}} type='submit' variant="contained" color="success">
                                 Add this quiz
                             </Button>
                             </Box>

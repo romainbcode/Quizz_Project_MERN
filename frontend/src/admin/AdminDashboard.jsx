@@ -71,7 +71,7 @@ const AdminDashboard = () => {
                 params.row.questionAnswer.question
             )
         },
-        {
+        {/*
             field: 'questionAnswer',
             headerName: 'answer',
             width: 350,
@@ -91,7 +91,7 @@ const AdminDashboard = () => {
             //console.log(params.value.answer)
             //
     
-            
+            */
         }
         
         
@@ -103,7 +103,6 @@ const AdminDashboard = () => {
     return (
         <Box >
         <Navbar/>
-
             <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
                 Posts
             </Typography>

@@ -11,6 +11,8 @@ exports.isAuthenticated = async(req, res, next)=>{
         //decode the token with our JWT password
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = await User.findById(decoded.id);
+
+        console.log("flo tqt")
         next();
     }catch(error){
         return next(new ErrorResponse('You must Log In', 401));
@@ -21,5 +23,6 @@ exports.isAdmin = async(req, res, next)=>{
     if(req.user.role === "user"){
         return next(new ErrorResponse('Acces denied, you must be an admin', 401));
     }
+    console.log("admin")
     next();
 }

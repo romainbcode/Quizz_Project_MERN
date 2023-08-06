@@ -15,7 +15,8 @@ import AdbIcon from '@mui/icons-material/Adb';
 import SchoolIcon from '@mui/icons-material/School';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { userLogoutAction } from '../redux/actions/userAction';
+import { userLogoutAction, userSignInAction } from '../redux/actions/userAction';
+import { UserCircle2 } from 'lucide-react';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -42,6 +43,7 @@ function ResponsiveAppBar() {
 
   const logOutUser = async () =>{
     dispatch(userLogoutAction);
+    //dispatch(userSignInAction({email: 'rom@gmail.com', password: 'Rom@1234'}))
     window.location.reload(true);
     setTimeout(()=>{
         navigate('/')
@@ -142,12 +144,15 @@ function ResponsiveAppBar() {
                 <MenuItem onClick={logOutUser}>
                     <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/signin">Logout</Link></Typography>
                 </MenuItem>
+                <MenuItem onClick={logOutUser}>
+                    <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/admin/dashboard">AsminDashboard</Link></Typography>
+                </MenuItem>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <UserCircle2 size={36} color="white" strokeWidth={1} />
               </IconButton>
             </Tooltip>
             <Menu

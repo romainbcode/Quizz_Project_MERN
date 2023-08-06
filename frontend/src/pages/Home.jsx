@@ -5,7 +5,7 @@ import moment from 'moment';
 import PostCard from '../components/PostCard';
 import Navbar from '../components/Navbar';
 import Typography from '@mui/material/Typography';
-
+import Loader from '../components/Loader'
 
 const Home = () => {
 
@@ -40,7 +40,7 @@ const Home = () => {
                 
                 
                 {
-                    isloading ? <>Loading....</> : 
+                    isloading ? <Loader/> : 
                     quizs && quizs.map((quiz, index) =>(
                         <Grid item xs={2} sm={4} md={4} key={index} >
                         <PostCard
@@ -51,7 +51,7 @@ const Home = () => {
                         />
                         </Grid>
                     ))
-                    }
+                }
                 
               </Grid>
             </Box>

@@ -6,7 +6,7 @@ const router = express.Router()
 //Quiz routes
 
 //Create quiz route
-router.post('/quiz/create',createQuiz);// isAuthenticated, isAdmin, createQuiz);
+router.post('/quiz/create', isAuthenticated, isAdmin, createQuiz);// isAuthenticated, isAdmin, createQuiz);
 //Show all quizs route
 router.get('/quizs/show', showQuizs);
 //Show on quiz route

@@ -3,6 +3,7 @@ const ErrorResponse = require('../utils/errorResponse');
 const cloudinary = require('../utils/cloudinary')
 
 exports.createQuiz = async(req, res, next)=>{
+    console.log("okok")
     const {image} = req.body;
     console.log(req.body)
     try{
