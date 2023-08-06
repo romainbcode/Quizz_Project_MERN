@@ -64,3 +64,68 @@ exports.showSingleQuiz = async(req, res, next)=>{
         next(err);
     }
 }
+
+//delete Quiz by id
+exports.deletePost = async(req, res, next)=>{
+    //Firstly, deleting the image
+    const currentPost = await Post.findById(req.params.id);
+    const ImgId = currentPost.image.public_id;
+
+    if(ImgId){
+        await cloudinary.uploader.destroy(ImgId);
+    }
+
+    try{
+        //Secondly, deleting quiz from mongoDB
+        const post = await Post.findByIdAndDelete(req.params.id)
+        res.status(200).json({
+            success: true,
+            message: "Post deleted"
+        })
+    }catch(err){
+        next(err);
+    }
+}
+
+/*
+//update Quiz by id
+exports.updatePost = async(req, res, next)=>{
+    try{
+        const {title, content, image} = req.body;
+        const currentPost = await Post.findById(req.params.id);
+
+        //Build the object data
+        const data = {
+            title: title || currentPost.title,
+            content: content || currentPost.content,
+            image: image || currentPost.image,
+        }
+
+        //modify post image conditionnaly
+        if(req.body.image !== ''){//Si une image doit etre modifié
+            const ImgId= currentPost.image.public_id;
+            if(ImgId){
+                await cloudinary.uploader.destroy(ImgId);
+            }
+            const newImage = await cloudinary.uploader.upload(req.body.image, {
+                folder: 'posts',
+                width: 1200,
+                crop: 'scale'
+            });
+
+            data.image = {
+                public_id: newImage.public_id,
+                url: newImage.secure_url
+            };
+        }
+
+        const postUpdate =  await Post.findByIdAndUpdate(req.params.id, data, {new:true});
+        res.status(200).json({
+            success: true,
+            postUpdate
+        })
+    }catch(err){
+        next(err);
+    }
+}
+*/

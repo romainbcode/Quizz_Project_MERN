@@ -1,5 +1,5 @@
 const express = require('express');
-const { createQuiz, showQuizs, showSingleQuiz } = require('../controllers/quizController');
+const { createQuiz, showQuizs, showSingleQuiz, deletePost } = require('../controllers/quizController');
 const { isAuthenticated, isAdmin } = require('../middleware/auth');
 const router = express.Router()
 
@@ -11,5 +11,7 @@ router.post('/quiz/create', isAuthenticated, isAdmin, createQuiz);// isAuthentic
 router.get('/quizs/show', showQuizs);
 //Show on quiz route
 router.get('/quiz/show/:id', showSingleQuiz)
+//Delete quiz route
+router.delete('/delete/post/:id',deletePost);//isAuthenticated, isAdmin, deletePost);
 
 module.exports = router;
