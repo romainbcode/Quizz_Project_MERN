@@ -66,10 +66,10 @@ exports.showSingleQuiz = async(req, res, next)=>{
 }
 
 //delete Quiz by id
-exports.deletePost = async(req, res, next)=>{
+exports.deleteQuiz = async(req, res, next)=>{
     //Firstly, deleting the image
-    const currentPost = await Post.findById(req.params.id);
-    const ImgId = currentPost.image.public_id;
+    const currentQuiz = await Quiz.findById(req.params.id);
+    const ImgId = currentQuiz.image.public_id;
 
     if(ImgId){
         await cloudinary.uploader.destroy(ImgId);
@@ -77,7 +77,7 @@ exports.deletePost = async(req, res, next)=>{
 
     try{
         //Secondly, deleting quiz from mongoDB
-        const post = await Post.findByIdAndDelete(req.params.id)
+        const quiz = await Quiz.findByIdAndDelete(req.params.id)
         res.status(200).json({
             success: true,
             message: "Post deleted"

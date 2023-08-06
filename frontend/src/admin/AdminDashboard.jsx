@@ -27,6 +27,21 @@ const AdminDashboard = () => {
         }
     }
 
+    //delete post by Id
+    const deleteQuizById = async (e, id) => {
+        // console.log(id)
+        if (window.confirm("Are you sure you want to delete this post?")) {
+            try {
+                const { data } = await axios.delete(`/api/delete/quiz/${id}`);
+                    toast.success(data.message);
+                    displayPost();
+            } catch (error) {
+                console.log(error);
+                toast.error(error);
+            }
+        }
+    }
+
     useEffect(() => {
         displayPost();
     }, [])
@@ -97,6 +112,25 @@ const AdminDashboard = () => {
             //
     
             
+        },
+        {
+            field: "Actions",
+            width: 100,
+            renderCell: (value) => (
+                <Box sx={{ display: "flex", justifyContent: "space-between", width: "170px" }}>
+                    {/*
+                    <Link to={`/admin/post/edit/${value.row._id}`}>
+                        <IconButton aria-label="edit" >
+                            <EditIcon sx={{ color: '#1976d2' }} />
+                        </IconButton>
+                    </Link>
+                    */}
+                    <IconButton aria-label="delete" onClick={(e) => deleteQuizById(e, value.row._id)} >
+                        <DeleteIcon sx={{ color: 'red' }} />
+                    </IconButton>
+
+                </Box>
+            )
         }
         
         
