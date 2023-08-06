@@ -13,6 +13,7 @@ import store from './redux/store'
 import SignUp from './pages/SignUp';
 import SinglePost from './pages/SingleQuiz';
 import AdminRoute from './components/AdminRoute';
+import EditQuiz from './admin/EditQuiz';
 
 //HOC
 
@@ -30,6 +31,7 @@ const App = () =>{
               <Route path='/signup' element={<SignUp/>}></Route>
               <Route path='/quiz/show/:id' element={<SinglePost/>}></Route>
               <Route path='/admin/quiz/create' element={<AdminRoute><CreateQuiz/></AdminRoute>}></Route>
+              <Route path='/admin/quiz/edit/:id' element={<EditQuiz/>}></Route>
               <Route path='/admin/dashboard' element={<AdminDashboard/>}></Route>
             </Routes>
           </BrowserRouter>

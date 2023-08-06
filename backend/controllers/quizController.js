@@ -87,9 +87,24 @@ exports.deleteQuiz = async(req, res, next)=>{
     }
 }
 
-/*
+
 //update Quiz by id
-exports.updatePost = async(req, res, next)=>{
+exports.updateQuiz = async(req, res, next)=>{
+    try{
+        const {title, subheader} = req.body
+
+        const currentQuiz = await Quiz.findById(req.params.id);
+
+        const data = {
+            title: title || currentQuiz.title,
+            subheader: subheader || currentQuiz.subheader
+        }
+
+    }catch(error){
+        next(err);
+    }
+
+    /*
     try{
         const {title, content, image} = req.body;
         const currentPost = await Post.findById(req.params.id);
@@ -126,6 +141,5 @@ exports.updatePost = async(req, res, next)=>{
         })
     }catch(err){
         next(err);
-    }
+    }*/
 }
-*/

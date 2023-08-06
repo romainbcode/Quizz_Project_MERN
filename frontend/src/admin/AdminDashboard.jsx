@@ -118,13 +118,13 @@ const AdminDashboard = () => {
             width: 100,
             renderCell: (value) => (
                 <Box sx={{ display: "flex", justifyContent: "space-between", width: "170px" }}>
-                    {/*
-                    <Link to={`/admin/post/edit/${value.row._id}`}>
+                    
+                    <Link to={`/admin/quiz/edit/${value.row._id}`}>
                         <IconButton aria-label="edit" >
                             <EditIcon sx={{ color: '#1976d2' }} />
                         </IconButton>
                     </Link>
-                    */}
+                    
                     <IconButton aria-label="delete" onClick={(e) => deleteQuizById(e, value.row._id)} >
                         <DeleteIcon sx={{ color: 'red' }} />
                     </IconButton>
