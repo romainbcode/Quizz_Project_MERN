@@ -44,6 +44,7 @@ const EditQuiz = () => {
         //createNewQuiz(values);
         //alert(JSON.stringify(values, null, 5));
         //actions.resetForm();
+        updatePost(values)
     }
 
     const validationSchema = yup.object({/*
@@ -92,6 +93,17 @@ const EditQuiz = () => {
         showSinglePostById()
     }, [])
 
+    const updatePost = async (values) => {
+        try {
+            const { data } = await axios.put(`/api/update/quiz/${id}`, values);
+            if (data.success === true) {
+                toast.success('quiz updated');
+                navigate('/admin/dashboard')
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
     
 
     return (

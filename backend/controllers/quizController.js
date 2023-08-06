@@ -100,6 +100,12 @@ exports.updateQuiz = async(req, res, next)=>{
             subheader: subheader || currentQuiz.subheader
         }
 
+        const quizUpdate =  await Quiz.findByIdAndUpdate(req.params.id, data, {new:true});
+        res.status(200).json({
+            success: true,
+            quizUpdate
+        })
+
     }catch(error){
         next(err);
     }
