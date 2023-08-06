@@ -34,7 +34,19 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         default: 'user'
-    }
+    },
+    scores:[{ 
+        titleQuiz:{
+            type: String,
+            ref: "Quiz"
+        },
+        correctAnswer: {
+            type: Number
+        },
+        totalCorrectAnswer: {
+            type:Number
+        },
+    }]
 }, {timestamps: true})
 
 userSchema.pre('save', async function(next){

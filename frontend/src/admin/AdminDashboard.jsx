@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Paper, Typography } from '@mui/material'
+import { Box, Button, Paper, Typography, autocompleteClasses } from '@mui/material'
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
@@ -71,14 +71,19 @@ const AdminDashboard = () => {
                 params.row.questionAnswer.question
             )
         },
-        {/*
+        {
             field: 'questionAnswer',
             headerName: 'answer',
+            autoHeight: true,
+            autoWidth:true,
             width: 350,
             valueGetter:(params)=>{
                 var text = ""
-                for (let i = 0; i < params.row.questionAnswer.answer.length; i++) {
-                    text = text + " " + params.row.questionAnswer.answer[i].answerText + " : " + params.row.questionAnswer.answer[i].stateAnswer
+                for (let i = 0; i < params.row.questionAnswer.length; i++) {
+                    for(let j =0; j<params.row.questionAnswer[i].answer.length; j++){
+                        text = text + " question : " + params.row.questionAnswer[i].question + " answer : " + params.row.questionAnswer[i].answer[j].stateAnswer + <br/>
+
+                    }
 
                 }
                 return text
@@ -91,7 +96,7 @@ const AdminDashboard = () => {
             //console.log(params.value.answer)
             //
     
-            */
+            
         }
         
         
@@ -123,8 +128,6 @@ const AdminDashboard = () => {
                             [`& .${gridClasses.row}`]: {
                                 bgcolor: "white"
                             },
-                            
-
                         }}
                         rows={posts}
                         columns={columns}
