@@ -22,9 +22,11 @@ const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+    const { userInfo } = useSelector(state => state.signIn);
     const dispatch = useDispatch();
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+    const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -43,7 +45,6 @@ function ResponsiveAppBar() {
 
   const logOutUser = async () =>{
     dispatch(userLogoutAction());
-    //dispatch(userSignInAction({email: 'rom@gmail.com', password: 'Rom@1234'}))
     window.location.reload(true);
     setTimeout(()=>{
         navigate('/')
@@ -132,23 +133,23 @@ function ResponsiveAppBar() {
                 <MenuItem onClick={handleCloseUserMenu}>
                     <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/">Home</Link></Typography>
                 </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/admin/quiz/create">Creat post admin</Link></Typography>
-                </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/signin">LogIn</Link></Typography>
-                </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/signup">SignUp</Link></Typography>
-                </MenuItem>
-                <MenuItem onClick={logOutUser}>
-                    <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/signin">Logout</Link></Typography>
-                </MenuItem>
-                <MenuItem onClick={logOutUser}>
-                    <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/admin/dashboard">AsminDashboard</Link></Typography>
-                </MenuItem>
+                {
+                    userInfo ? 
+                    <MenuItem onClick={logOutUser}>
+                        <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/signin">Logout</Link></Typography>
+                    </MenuItem>
+                
+                    : 
+                    <Box sx={{display:'flex', flexDirection: 'row'}}>
+                    <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography ><Link style={{textDecoration: "none", color: "white", fontWeight:'bold'}}>LogIn</Link></Typography>
+                    </MenuItem>
+                    <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/signup">SignUp</Link></Typography>
+                    </MenuItem>
+                    </Box>
+                } 
           </Box>
-
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -171,9 +172,28 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+            {
+                userInfo && userInfo.role === 'admin' ? 
+                <Box>
                 <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography ><Link style={{textDecoration: "none", color: "black"}}to="/admin/dashboard">Admin</Link></Typography>
+                    <Typography ><Link style={{textDecoration: "none", color: '#000', fontWeight:'bold'}}to="/admin/dashboard">Admin</Link></Typography>
                 </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography ><Link style={{textDecoration: "none", color: '#000', fontWeight:'bold'}}to="/admin/dashboard">AsminDashboard</Link></Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography ><Link style={{textDecoration: "none", color: '#000', fontWeight:'bold'}}to="/admin/quiz/create">Creat post admin</Link></Typography>
+                </MenuItem>
+                </Box>
+
+                : //userInfo && userInfo.role === 'user' ? 
+                <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography ><Link style={{textDecoration: "none", color: "black"}}>User</Link></Typography>
+                </MenuItem>
+                
+                
+            }
+                
               
             </Menu>
           </Box>
