@@ -14,7 +14,7 @@ import 'react-quill/dist/quill.snow.css';
 import {modules} from '../components/moduleToolbar.jsx'
 import React, { useEffect, useState, useCallback } from 'react'
 import Navbar from '../components/Navbar';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 
 
@@ -23,21 +23,18 @@ import { useParams } from 'react-router-dom';
 const EditQuiz = () => {
     const [title, setTitle] = useState('');
     const [subheader, setSubheader] = useState('');
+    const [questionAnswer, setQuestionAnswer] = useState([]);
+    const [image, setImage] = useState('');
+
     const { id } = useParams();
+
+    const navigate = useNavigate();
 
     const initialValues = {
         title,
         subheader,
-        image: null,
-        questionAnswer:[{
-            question:'',
-            answer:[
-                {
-                    answerText : '',
-                    stateAnswer : false
-                } 
-            ]
-        }]
+        image: '',
+        questionAnswer
     };
 
     const onSubmit = (values) =>{
@@ -82,7 +79,8 @@ const EditQuiz = () => {
             const { data } = await axios.get(`/api/quiz/show/${id}`);
             setTitle(data.quiz.title)
             setSubheader(data.quiz.subheader)
-            console.log(title)
+            setQuestionAnswer(data.quiz.questionAnswer)
+            setImage(data.quiz.image.url)
         } catch (error) {
             console.log(error);
             toast.error(error);
@@ -324,7 +322,7 @@ const EditQuiz = () => {
                                                 <>
                                                     <Box sx={{ display: "flex", justifyContent: 'space-around', alignItems: 'center' }}>
 
-                                                        <Box ><img style={{ maxWidth: "100px" }} src={values.image} alt="" /></Box>
+                                                        <Box ><img style={{ maxWidth: "100px" }} src={values.image === '' ? image : values.image} alt="" /></Box>
                                                     </Box>
                                                 </>
                                             }

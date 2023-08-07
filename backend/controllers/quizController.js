@@ -91,13 +91,33 @@ exports.deleteQuiz = async(req, res, next)=>{
 //update Quiz by id
 exports.updateQuiz = async(req, res, next)=>{
     try{
-        const {title, subheader} = req.body
+        const {title, subheader, image, questionAnswer} = req.body
 
         const currentQuiz = await Quiz.findById(req.params.id);
 
         const data = {
             title: title || currentQuiz.title,
-            subheader: subheader || currentQuiz.subheader
+            subheader: subheader || currentQuiz.subheader,
+            image: image || currentQuiz.image,
+            questionAnswer : questionAnswer || currentQuiz.questionAnswer
+        }
+
+        //modify quiz image conditionnaly
+        if(req.body.image !== ''){
+            const ImgId= currentQuiz.image.public_id;
+            if(ImgId){
+                await cloudinary.uploader.destroy(ImgId);
+            }
+            const newImage = await cloudinary.uploader.upload(req.body.image, {
+                folder: 'quizs',
+                width: 1200,
+                crop: 'scale'
+            });
+
+            data.image = {
+                public_id: newImage.public_id,
+                url: newImage.secure_url
+            };
         }
 
         const quizUpdate =  await Quiz.findByIdAndUpdate(req.params.id, data, {new:true});
