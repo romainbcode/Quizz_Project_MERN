@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Tooltip, MenuItem } from '@mui/material';
-import { MenuIcon, SchoolIcon } from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
+import SchoolIcon from '@mui/icons-material/School';
+import { Link} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogoutAction} from '../redux/actions/userAction';
-import { UserCircle2 } from 'lucide-react';
-
+import { UserCircle2, MenuSquare, GraduationCap } from 'lucide-react';
 
 function ResponsiveAppBar() {
     const { userInfo } = useSelector(state => state.signIn);
@@ -41,13 +40,13 @@ function ResponsiveAppBar() {
         <AppBar position="static" sx={{bgcolor: 'primary.mainGreenDark'}}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <SchoolIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: 'primary.themewhite', }} />
+                    <GraduationCap color="#ffffff" strokeWidth={1}/>
                     <Typography
                     variant="h6"
                     noWrap
                     component="a"
                     sx={{
-                        mr: 2,
+                        ml: 2,
                         display: { xs: 'none', md: 'flex' },
                         fontFamily: 'monospace',
                         fontWeight: 700,
@@ -58,7 +57,6 @@ function ResponsiveAppBar() {
                     >
                     Quiz
                     </Typography>
-                
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                         size="large"
@@ -68,7 +66,7 @@ function ResponsiveAppBar() {
                         onClick={handleOpenNavMenu}
                         color="inherit"
                         >
-                        <MenuIcon sx={{color:'white'}}/>
+                        <MenuSquare color='white'/>
                         </IconButton>
                         <Menu
                         id="menu-appbar"
@@ -211,5 +209,4 @@ function ResponsiveAppBar() {
         </AppBar>
     );
 }
-
 export default ResponsiveAppBar;
