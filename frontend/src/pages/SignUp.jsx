@@ -40,11 +40,13 @@ const SignUp = () => {
     }
       
     const onSubmit = (values) =>{
-        //alert(JSON.stringify(values, null, 2));
-
         dispatch(userSignUpAction(values));
         actions.resetForm();
         navigate('/signin');
+    }
+
+    const goSignIn = () =>{
+        navigate('/signup')
     }
 
   return (
@@ -131,6 +133,11 @@ const SignUp = () => {
                                 <Button  fullWidth variant="contained" type='submit' >
                                     Sign Up
                                 </Button>
+                                <Box sx={{display:'flex', textAlign:'left', justifyContent:'left', width:'100%', p:0, m:0, mt:1}}>
+                                    <Button onClick={goSignIn} sx={{textDecoration: 'underline'}}>
+                                        Already register ? Log in !
+                                    </Button>
+                                </Box>
                                 
 
                                 

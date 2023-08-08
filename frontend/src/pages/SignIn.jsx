@@ -31,9 +31,7 @@ const SignIn = () => {
         password: ''
     }
       
-    const onSubmit = (values) =>{
-        //alert(JSON.stringify(values, null, 2));
-
+    const onSubmit = (values) => {
         dispatch(userSignInAction(values));
         actions.resetForm();
     }
@@ -47,6 +45,10 @@ const SignIn = () => {
             }
         }
     }, [isAuthenticated])
+
+    const goCreateAccount = () =>{
+        navigate('/signup')
+    }
 
   return (
     <>
@@ -113,7 +115,11 @@ const SignIn = () => {
                                 <Button disabled={loading} fullWidth variant="contained" type='submit' >
                                     LogIn
                                 </Button>
-                                
+                                <Box sx={{display:'flex', textAlign:'left', justifyContent:'left', width:'100%', p:0, m:0, mt:1}}>
+                                    <Button disabled={loading} onClick={goCreateAccount} sx={{textDecoration: 'underline'}}>
+                                        Not register ? Creat you account !
+                                    </Button>
+                                </Box>
 
                                 
                             </Box>
