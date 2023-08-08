@@ -1,25 +1,11 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import SchoolIcon from '@mui/icons-material/School';
-import { Link, useNavigate } from 'react-router-dom';
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Tooltip, MenuItem } from '@mui/material';
+import { MenuIcon, SchoolIcon } from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { userLogoutAction, userSignInAction } from '../redux/actions/userAction';
+import { userLogoutAction} from '../redux/actions/userAction';
 import { UserCircle2 } from 'lucide-react';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
     const { userInfo } = useSelector(state => state.signIn);
@@ -28,180 +14,202 @@ function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+    const handleOpenNavMenu = (event) => {
+        setAnchorElNav(event.currentTarget);
+    };
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
 
-  const logOutUser = async () =>{
-    dispatch(userLogoutAction());
-    window.location.reload(true);
-    setTimeout(()=>{
-        navigate('/')
-    },500)
-  }
+    const logOutUser = async () =>{
+        dispatch(userLogoutAction());
+        window.location.reload(true);
+        setTimeout(()=>{
+            navigate('/')
+        },500)
+    }
 
-  return (
-    <AppBar position="static" sx={{bgcolor: 'primary.mainGreenDark'}}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <SchoolIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: 'primary.themewhite', }} />
-          
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'primary.themewhite',
-              textDecoration: 'none',
-            }}
-          >
-            Quiz
-          </Typography>
-          
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon sx={{color:'white'}}/>
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              display: { xs: 'flex', md: 'none'},
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'white',
-              textDecoration: 'none',
-            }}
-          >
-            Quizs
-          </Typography>
-          
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/">Home</Link></Typography>
-                </MenuItem>
-                {
-                    userInfo ? 
-                    <MenuItem onClick={logOutUser}>
-                        <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/signin">Logout</Link></Typography>
-                    </MenuItem>
+    return (
+        <AppBar position="static" sx={{bgcolor: 'primary.mainGreenDark'}}>
+            <Container maxWidth="xl">
+                <Toolbar disableGutters>
+                    <SchoolIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: 'primary.themewhite', }} />
+                    <Typography
+                    variant="h6"
+                    noWrap
+                    component="a"
+                    sx={{
+                        mr: 2,
+                        display: { xs: 'none', md: 'flex' },
+                        fontFamily: 'monospace',
+                        fontWeight: 700,
+                        letterSpacing: '.3rem',
+                        color: 'primary.themewhite',
+                        textDecoration: 'none',
+                    }}
+                    >
+                    Quiz
+                    </Typography>
                 
-                    : 
-                    
+                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                        <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleOpenNavMenu}
+                        color="inherit"
+                        >
+                        <MenuIcon sx={{color:'white'}}/>
+                        </IconButton>
+                        <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorElNav}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                        open={Boolean(anchorElNav)}
+                        onClose={handleCloseNavMenu}
+                        sx={{
+                            display: { xs: 'block', md: 'none' },
+                        }}
+                        >
+                            { 
+                            userInfo ? 
+                            <Box sx={{ flexGrow: 0 }}>
+                            
+                            {
+                                userInfo.role === 'admin' ? 
+                                <Box>
+                                <MenuItem onClick={handleCloseUserMenu}>
+                                    <Typography ><Link style={{textDecoration: "none", color: '#000', fontWeight:'bold'}}to="/admin/dashboard">Admin</Link></Typography>
+                                </MenuItem>
+                                <MenuItem onClick={handleCloseUserMenu}>
+                                    <Typography ><Link style={{textDecoration: "none", color: '#000', fontWeight:'bold'}}to="/admin/dashboard">AsminDashboard</Link></Typography>
+                                </MenuItem>
+                                <MenuItem onClick={handleCloseUserMenu}>
+                                    <Typography ><Link style={{textDecoration: "none", color: '#000', fontWeight:'bold'}}to="/admin/quiz/create">Creat post admin</Link></Typography>
+                                </MenuItem>
+                                </Box>
+
+                                : 
+                                <MenuItem onClick={handleCloseUserMenu}>
+                                    <Typography ><Link style={{textDecoration: "none", color: "#000"}}>User</Link></Typography>
+                                </MenuItem>
+                                
+                                
+                            }
+                            </Box>
+
+                            :
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <Typography ><Link style={{textDecoration: "none", color: "#000", fontWeight:'bold'}}to="/signin">LogIn</Link></Typography>
+                            </MenuItem>
+                            }
+                        </Menu>
+                    </Box>
+                    <Typography
+                    variant="h5"
+                    noWrap
+                    component="a"
+                    href=""
+                    sx={{
+                        display: { xs: 'flex', md: 'none'},
+                        flexGrow: 1,
+                        fontFamily: 'monospace',
+                        fontWeight: 700,
+                        letterSpacing: '.3rem',
+                        color: 'white',
+                        textDecoration: 'none',
+                    }}
+                    >
+                    Quizs
+                    </Typography>
+                
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        <MenuItem onClick={handleCloseUserMenu}>
+                            <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/">Home</Link></Typography>
+                        </MenuItem>
+                        {
+                            userInfo ? 
+                            <MenuItem onClick={logOutUser}>
+                                <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/signin">Logout</Link></Typography>
+                            </MenuItem>
+                        
+                            : 
+                            
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/signup">SignUp</Link></Typography>
+                            </MenuItem>
+                        } 
+                    </Box>
+                    { 
+                    userInfo ? 
+                    <Box sx={{ flexGrow: 0 }}>
+                        <Tooltip title="Open settings">
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <UserCircle2 size={36} color="white" strokeWidth={1} />
+                            </IconButton>
+                        </Tooltip>
+                        <Menu
+                            sx={{ mt: '45px' }}
+                            id="menu-appbar"
+                            anchorEl={anchorElUser}
+                            anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                            }}
+                            open={Boolean(anchorElUser)}
+                            onClose={handleCloseUserMenu}
+                        >
+                        {
+                            userInfo.role === 'admin' ? 
+                            <Box>
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <Typography ><Link style={{textDecoration: "none", color: '#000', fontWeight:'bold'}}to="/admin/dashboard">Admin</Link></Typography>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <Typography ><Link style={{textDecoration: "none", color: '#000', fontWeight:'bold'}}to="/admin/dashboard">AsminDashboard</Link></Typography>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <Typography ><Link style={{textDecoration: "none", color: '#000', fontWeight:'bold'}}to="/admin/quiz/create">Creat post admin</Link></Typography>
+                            </MenuItem>
+                            </Box>
+                            : 
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <Typography ><Link style={{textDecoration: "none", color: "black"}}>User</Link></Typography>
+                            </MenuItem>
+                        }
+                        </Menu>
+                    </Box>
+                    :
                     <MenuItem onClick={handleCloseUserMenu}>
-                        <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/signup">SignUp</Link></Typography>
+                        <Typography ><Link style={{textDecoration: "none", color: "white", fontWeight:'bold'}}to="/signin">LogIn</Link></Typography>
                     </MenuItem>
-                } 
-          </Box>
-        { 
-        userInfo ? 
-        <Box sx={{ flexGrow: 0 }}>
-        <Tooltip title="Open settings">
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <UserCircle2 size={36} color="white" strokeWidth={1} />
-            </IconButton>
-        </Tooltip>
-        <Menu
-            sx={{ mt: '45px' }}
-            id="menu-appbar"
-            anchorEl={anchorElUser}
-            anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-            }}
-            keepMounted
-            transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-            }}
-            open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
-        >
-        {
-            userInfo.role === 'admin' ? 
-            <Box>
-            <MenuItem onClick={handleCloseUserMenu}>
-                <Typography ><Link style={{textDecoration: "none", color: '#000', fontWeight:'bold'}}to="/admin/dashboard">Admin</Link></Typography>
-            </MenuItem>
-            <MenuItem onClick={handleCloseUserMenu}>
-                <Typography ><Link style={{textDecoration: "none", color: '#000', fontWeight:'bold'}}to="/admin/dashboard">AsminDashboard</Link></Typography>
-            </MenuItem>
-            <MenuItem onClick={handleCloseUserMenu}>
-                <Typography ><Link style={{textDecoration: "none", color: '#000', fontWeight:'bold'}}to="/admin/quiz/create">Creat post admin</Link></Typography>
-            </MenuItem>
-            </Box>
-
-            : 
-            <MenuItem onClick={handleCloseUserMenu}>
-                <Typography ><Link style={{textDecoration: "none", color: "black"}}>User</Link></Typography>
-            </MenuItem>
-            
-            
-        }
-        </Menu>
-        </Box>
-
-        :
-        <MenuItem onClick={handleCloseUserMenu}>
-            <Typography ><Link style={{textDecoration: "none", color: "white", fontWeight:'bold'}}to="/signin">LogIn</Link></Typography>
-        </MenuItem>
-        }
-          
-        </Toolbar>
-      </Container>
-    </AppBar>
-  );
+                    }
+                </Toolbar>
+            </Container>
+        </AppBar>
+    );
 }
+
 export default ResponsiveAppBar;
