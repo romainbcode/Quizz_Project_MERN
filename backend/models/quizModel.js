@@ -40,7 +40,16 @@ const quizSchema = new mongoose.Schema({
             ref: "User"
         }
     }],
-    scores: [{ type: ObjectId, ref: "User" }],
+    scores: [{ 
+        completedBy: {type: ObjectId, ref: "User"},
+        correctAnswer: {
+            type: Number
+        },
+        totalCorrectAnswer: {
+            type:Number
+        },
+        completed: { type: Date, default: Date.now },
+     }],
     likes: [{ type: ObjectId, ref: "User" }],
 }, {timestamps: true})
 

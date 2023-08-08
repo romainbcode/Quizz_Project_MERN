@@ -36,16 +36,8 @@ const userSchema = new mongoose.Schema({
         default: 'user'
     },
     scores:[{ 
-        titleQuiz:{
-            type: String,
-            ref: "Quiz"
-        },
-        correctAnswer: {
-            type: Number
-        },
-        totalCorrectAnswer: {
-            type:Number
-        },
+        type: String,
+        ref: "Quiz"
     }]
 }, {timestamps: true})
 

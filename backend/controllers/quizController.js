@@ -130,3 +130,31 @@ exports.updateQuiz = async(req, res, next)=>{
         next(err);
     }
 }
+
+//add score quiz
+exports.addScoreQuiz = async (req, res, next) => {
+    console.log(req.body)
+    //const { comment } = req.body;
+    /*
+    try {
+        const quizScore = await Quiz.findByIdAndUpdate(req.params.id, {
+            $push: { scores: { 
+                completedBy: req.user._id,
+
+                correctAnswer: numberCorrectAnswer,
+                totalCorrectAnswer: numberTotalCorrectAnswer
+              } }
+            },
+            { new: true }
+        );
+        const quiz = await Quiz.findById(quizScore._id).populate('scores.completedBy', 'username email')//Ajoute les données name et email dans postedBy alors que normalement y'a que l'id car les deux tables sont liées par postedBy
+        res.status(200).json({
+            success: true,
+            quiz
+        })
+
+    } catch (error) {
+        next(error);
+    }*/
+
+}
