@@ -3,9 +3,7 @@ const ErrorResponse = require('../utils/errorResponse');
 const cloudinary = require('../utils/cloudinary')
 
 exports.createQuiz = async(req, res, next)=>{
-    console.log("okok")
     const {image} = req.body;
-    console.log(req.body)
     try{
         //upload image in cloudinary
         const result = await cloudinary.uploader.upload(image, {
@@ -133,20 +131,21 @@ exports.updateQuiz = async(req, res, next)=>{
 
 //add score quiz
 exports.addScoreQuiz = async (req, res, next) => {
-    console.log(req.body)
+    const {correctAnswer, totalCorrectAnswer} = req.body
     //const { comment } = req.body;
-    /*
+    
     try {
         const quizScore = await Quiz.findByIdAndUpdate(req.params.id, {
             $push: { scores: { 
-                completedBy: req.user._id,
-
-                correctAnswer: numberCorrectAnswer,
-                totalCorrectAnswer: numberTotalCorrectAnswer
+                //completedBy: req.user._id,
+                completedBy: "64c552533dfbf19cc42972a8",
+                correctAnswer: correctAnswer,
+                totalCorrectAnswer: totalCorrectAnswer
               } }
             },
             { new: true }
         );
+        
         const quiz = await Quiz.findById(quizScore._id).populate('scores.completedBy', 'username email')//Ajoute les données name et email dans postedBy alors que normalement y'a que l'id car les deux tables sont liées par postedBy
         res.status(200).json({
             success: true,
@@ -155,6 +154,6 @@ exports.addScoreQuiz = async (req, res, next) => {
 
     } catch (error) {
         next(error);
-    }*/
+    }
 
 }
