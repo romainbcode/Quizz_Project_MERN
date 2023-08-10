@@ -37,8 +37,20 @@ const SinglePost = () => {
     const [answer, setAnswer] = useState([]);
     const [questionAnswer, setQuestionAnswer] = useState([])
     const [loading, setLoading] = useState(false);
+    const [totalGoodAnswer, setTotalGoodAnswer] = useState(0);
 
     const { id } = useParams();
+
+    const [num, setNum] = useState(0);
+    const [answerClicked, setAnswerClicked] = useState(0);
+
+    const [loadLocalStorage, setLoadLocalStorage] = useState(false)
+
+    const updateNumberGoodAnswer=()=>{
+        setAnswerClicked(answerClicked+1)
+        console.log("k,o")
+        console.log(JSON.parse(localStorage.getItem('test2')))
+    }
 
     //fetch single post
     const displaySinglePost = async () => {
@@ -50,51 +62,76 @@ const SinglePost = () => {
             setImage(data.quiz.image.url);
             setCreatedAt(data.quiz.createdAt);
             setQuestionAnswer(data.quiz.questionAnswer) 
-            console.log("before", questionAnswer)          
+            setTotalGoodAnswer(data.quiz.questionAnswer.length)
             setLoading(false);
-            console.log("after", questionAnswer)
-
-
         } catch (error) {
             console.log(error);
         }
     }
 
+    const addScoreQuiz = async () => {
+        setLoadLocalStorage(true)
+        try {
+            const { data } = await axios.put(`/api/addscore/quiz/${id}`, { 
+                correctAnswer: answerClicked,
+                totalCorrectAnswer: totalGoodAnswer
+             });
+            if (data.success === true) {
+                toast.success("score quiz added");
+                //displaySinglePost();
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error);
+        }
+    }
+    useEffect(() => {
+        console.log("reset")
+        localStorage.setItem('test2', JSON.stringify(0))
+    }, [loadLocalStorage])
+
     useEffect(() => {
         displaySinglePost();
-        console.log("useEffect", questionAnswer)
+        
     }, [])
-    
+
     return (
         <>
             <Navbar />
             <Box sx={{display: 'flex', justifyContent:'center', width: '100%', height:'100%', pt:2}}>
                 {
-                    loading ? <Loader/> :
-                        <Box sx={{display: 'flex', justifyContent:'center', width: '90%'}}>
-                            <Card sx={{height: '100%', width: '100%', bgcolor:'transparent', boxShadow:'none'}}>
-                                <Box sx={{color:'primary.themewhite', bgcolor: "primary.mainGreenDark", borderRadius: '20px', boxShadow: '0 3px 10px #000', m:2 }}>
-                                    <CardHeader
-                                        title={title}
-                                    />
-                                    <Typography variant="body2" sx={{pb:2}}>
-                                        <Box component='span' dangerouslySetInnerHTML={{ __html: subheader }}></Box>
-                                    </Typography>
-                                </Box>
-                                
-                                <CardContent sx={{mb:3, mt:3}}>
-                                    {
-                                        questionAnswer.length === 0 ? 'Any answer' :
-                                            questionAnswer && questionAnswer.map((an, index)=>(
-                                                <Box sx={{bgcolor:"primary.mainGreenDark", borderRadius: '20px', boxShadow: '0 3px 10px #000'}}>
-                                                    <AnswerList question={an.question} answer={an.answer}
-                                                    />
-                                                </Box>
-                                            ))
-                                    }
-                                </CardContent>
-                            </Card>
-                        </Box>
+                loading ? <Loader/> :
+                    <Box sx={{display: 'flex', justifyContent:'center', width: '90%'}}>
+                        <Card sx={{height: '100%', width: '100%', bgcolor:'transparent', boxShadow:'none'}}>
+                            <Box sx={{color:'primary.themewhite', bgcolor: "primary.mainGreenDark", borderRadius: '20px', boxShadow: '0 3px 10px #000', m:2 }}>
+                                <CardHeader
+                                    title={title}
+                                />
+                                <Typography variant="body2" sx={{pb:2}}>
+                                    <Box component='span' dangerouslySetInnerHTML={{ __html: subheader }}></Box>
+                                </Typography>
+                                <Typography variant="body2" sx={{}}>
+                                    {"Total of answer : " + totalGoodAnswer}
+                                </Typography>
+                            </Box>
+                            <CardContent sx={{mb:3, mt:3}}>
+                                {
+                                    questionAnswer.length === 0 ? 'Any answer' :
+                                    questionAnswer && questionAnswer.map((an, index)=>(
+                                        <Box sx={{bgcolor:"primary.mainGreenDark", borderRadius: '20px', boxShadow: '0 3px 10px #000'}}>
+                                            <AnswerList question={an.question} answer={an.answer} numbertotalanswer={totalGoodAnswer} numberGoodAnswer={updateNumberGoodAnswer}/>
+                                        </Box>
+                                    ))
+                                }
+                            </CardContent>
+                            {"good answer : " + answerClicked}
+                            <Button onClick={()=>
+                            addScoreQuiz()
+                            }>
+                                VALIDER
+                            </Button>
+                        </Card>
+                    </Box>
                 }
             </Box>
         </>
