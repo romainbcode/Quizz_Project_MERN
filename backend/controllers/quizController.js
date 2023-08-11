@@ -155,3 +155,18 @@ exports.addScoreQuiz = async (req, res, next) => {
     }
 
 }
+
+exports.getScoreQuizByIdUser = async(req, res, next)=>{
+    const idUser = req.user._id
+    try{
+        const scoreQuizUser = await Quiz.find({
+            "scores.completedBy": idUser
+        })
+        res.status(200).json({
+            success:true,
+            scoreQuizUser
+        })
+    }catch(error){
+        next(error)
+    }
+}
