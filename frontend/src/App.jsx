@@ -14,6 +14,7 @@ import SignUp from './pages/SignUp';
 import SinglePost from './pages/SingleQuiz';
 import AdminRoute from './components/AdminRoute';
 import EditQuiz from './admin/EditQuiz';
+import UserDashboard from './user/userDashboard';
 
 //HOC
 
@@ -33,6 +34,7 @@ const App = () =>{
               <Route path='/admin/quiz/create' element={<AdminRoute><CreateQuiz/></AdminRoute>}></Route>
               <Route path='/admin/quiz/edit/:id' element={<EditQuiz/>}></Route>
               <Route path='/admin/dashboard' element={<AdminDashboard/>}></Route>
+              <Route path='/user/dashboard' element={<UserDashboard/>}></Route>
             </Routes>
           </BrowserRouter>
         </ProSidebarProvider> 
