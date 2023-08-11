@@ -3,7 +3,7 @@ import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Tooltip,
 import SchoolIcon from '@mui/icons-material/School';
 import { Link} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { userLogoutAction} from '../redux/actions/userAction';
+import { userLogoutAction, userProfileAction} from '../redux/actions/userAction';
 import { UserCircle2, MenuSquare, GraduationCap } from 'lucide-react';
 
 function ResponsiveAppBar() {
@@ -35,6 +35,11 @@ function ResponsiveAppBar() {
             navigate('/')
         },500)
     }
+
+    const getUserInfo = async()=>{
+        dispatch(userProfileAction());
+    }
+    
 
     return (
         <AppBar position="static" sx={{bgcolor: 'primary.mainGreenDark'}}>
@@ -105,8 +110,8 @@ function ResponsiveAppBar() {
                                 </Box>
 
                                 : 
-                                <MenuItem onClick={handleCloseUserMenu}>
-                                    <Typography ><Link style={{textDecoration: "none", color: "#000"}}>User</Link></Typography>
+                                <MenuItem onClick={getUserInfo}>
+                                    <Typography ><Link style={{textDecoration: "none", color: "#000"}} to="/user/dashboard">UserProfile</Link></Typography>
                                 </MenuItem>
                                 
                                 
@@ -193,8 +198,8 @@ function ResponsiveAppBar() {
                             </MenuItem>
                             </Box>
                             : 
-                            <MenuItem onClick={handleCloseUserMenu}>
-                                <Typography ><Link style={{textDecoration: "none", color: "black"}}>User</Link></Typography>
+                            <MenuItem onClick={getUserInfo}>
+                                <Typography ><Link style={{textDecoration: "none", color: "black"}} to='/user/dashboard'>UserInfo</Link></Typography>
                             </MenuItem>
                         }
                         </Menu>
