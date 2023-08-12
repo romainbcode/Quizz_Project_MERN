@@ -167,19 +167,21 @@ exports.getScoreQuizByIdUser = async(req, res, next)=>{
             quiz.scores.forEach((scores)=>{
                 if(String(scores.completedBy) == String(idUser)){
                     arrayScoresDetailsUser.push({
+                        id: quiz._id,
+                        title: quiz.title,
+                        subheader: quiz.subheader,
+                        image: quiz.image,
                         completedBy: scores.completedBy,
                         correctAnswer: scores.correctAnswer,
                         totalCorrectAnswer: scores.totalCorrectAnswer,
                         completed: scores.completed
                     });
                 }
-                
             })
         }
         );
         res.status(200).json({
             success:true,
-            scoreQuizUser,
             arrayScoresDetailsUser
         })
     }catch(error){
