@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userLogoutAction, userProfileAction} from '../redux/actions/userAction';
 import { UserCircle2, MenuSquare, GraduationCap } from 'lucide-react';
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({
+    titlePage
+    }) {
     const { userInfo } = useSelector(state => state.signIn);
     const dispatch = useDispatch();
 
@@ -45,23 +47,48 @@ function ResponsiveAppBar() {
         <AppBar position="static" sx={{bgcolor: 'primary.mainGreenDark'}}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <GraduationCap color="#ffffff" strokeWidth={1}/>
-                    <Typography
-                    variant="h6"
-                    noWrap
-                    component="a"
-                    sx={{
-                        ml: 2,
+
+                    <Box sx={{position: 'absolute', left: '50%', transform: 'translate(-50%, 0%)', display:'flex', flexDirection:'row', alignItems:'center'}} >
+                        <Typography
+                        variant="h6"
+                        noWrap
+                        component="a"
+                        sx={{
+                            display: { xs: 'none', md: 'flex' },
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'primary.themewhite',
+                            textDecoration: 'none',
+                            justifyContent:'center',
+                            flexGrow:1
+
+                        }}
+                        >
+                        {titlePage}
+                        </Typography>
+                    </Box>
+                    
+                    <Box sx={{
                         display: { xs: 'none', md: 'flex' },
-                        fontFamily: 'monospace',
-                        fontWeight: 700,
-                        letterSpacing: '.3rem',
+                        alignItems: 'center',
                         color: 'primary.themewhite',
-                        textDecoration: 'none',
-                    }}
-                    >
-                    Quiz
-                    </Typography>
+                    }}>
+                        <GraduationCap strokeWidth={1.5}/>
+                        <Typography
+                        variant="h6"
+                        noWrap
+                        sx={{
+                            ml:1,
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            textDecoration: 'none',
+                        }}
+                        >
+                            Quiz
+                        </Typography>
+                    </Box>
+
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                         size="large"
@@ -125,6 +152,7 @@ function ResponsiveAppBar() {
                             }
                         </Menu>
                     </Box>
+                    
                     <Typography
                     variant="h5"
                     noWrap
@@ -140,10 +168,12 @@ function ResponsiveAppBar() {
                         textDecoration: 'none',
                     }}
                     >
-                    Quizs
+                    {titlePage}
+
                     </Typography>
-                
+                    
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        
                         <MenuItem onClick={handleCloseUserMenu}>
                             <Typography ><Link style={{textDecoration: "none", color: 'white', fontWeight:'bold'}}to="/">Home</Link></Typography>
                         </MenuItem>
@@ -160,6 +190,8 @@ function ResponsiveAppBar() {
                             </MenuItem>
                         } 
                     </Box>
+                    
+                    
                     { 
                     userInfo ? 
                     <Box sx={{ flexGrow: 0 }}>
