@@ -162,9 +162,25 @@ exports.getScoreQuizByIdUser = async(req, res, next)=>{
         const scoreQuizUser = await Quiz.find({
             "scores.completedBy": idUser
         })
+        const arrayScoresDetailsUser = []
+        scoreQuizUser.forEach((quiz) => {
+            quiz.scores.forEach((scores)=>{
+                if(String(scores.completedBy) == String(idUser)){
+                    arrayScoresDetailsUser.push({
+                        completedBy: scores.completedBy,
+                        correctAnswer: scores.correctAnswer,
+                        totalCorrectAnswer: scores.totalCorrectAnswer,
+                        completed: scores.completed
+                    });
+                }
+                
+            })
+        }
+        );
         res.status(200).json({
             success:true,
-            scoreQuizUser
+            scoreQuizUser,
+            arrayScoresDetailsUser
         })
     }catch(error){
         next(error)
