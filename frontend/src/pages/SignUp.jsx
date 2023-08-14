@@ -46,7 +46,7 @@ const SignUp = () => {
     }
 
     const goSignIn = () =>{
-        navigate('/signup')
+        navigate('/signin')
     }
 
   return (
