@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { Box, Typography, Button } from '@mui/material';
-import { useEffect, useState, useRef } from 'react';
-import { green } from '@mui/material/colors';
-import { red } from '@mui/material/colors';
-import { Link } from 'react-router-dom';
-import { QuestionAnswer } from '@mui/icons-material';
+import { useState } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
+import DoneIcon from '@mui/icons-material/Done';
 
 const AnswerList = ({ question, answer, numbertotalanswer, numberGoodAnswer}) => {
     const [loading, setLoading] = useState(false);    
@@ -12,25 +10,21 @@ const AnswerList = ({ question, answer, numbertotalanswer, numberGoodAnswer}) =>
         answer.map(ans => ans.stateAnswer)
     );
 
-
     const clickHandlers = (ans, index) => {
-        if(JSON.parse(localStorage.getItem('test2'))){
-            
-            var numm = JSON.parse(localStorage.getItem('test2'))
-            localStorage.setItem('test2', JSON.stringify(numm+1))
-            console.log("child" + JSON.parse(localStorage.getItem('test2')))
+        if(JSON.parse(localStorage.getItem('answerTrueFalse'))){
+            var numgoodanswer = JSON.parse(localStorage.getItem('answerTrueFalse'))
+            localStorage.setItem('answerTrueFalse', JSON.stringify(numgoodanswer+1))
             if(ans.stateAnswer){
                 numberGoodAnswer()
             }
         }else{
-            localStorage.setItem('test2', JSON.stringify(1))
+            localStorage.setItem('answerTrueFalse', JSON.stringify(1))
             if(ans.stateAnswer){
                 numberGoodAnswer()
             }
         }
         setLoading(true)
         
-        //JSON.parse(localStorage.getItem('test2'))
 	}
 
     return (
@@ -44,14 +38,24 @@ const AnswerList = ({ question, answer, numbertotalanswer, numberGoodAnswer}) =>
                         <Button disabled={loading} key={index} sx={{width:'40%', bgcolor: "primary.light", borderRadius: '20px', boxShadow: '0 3px 10px #000', m:2}}
                             style={{
                                 border: '3px solid',
-                                borderColor: (loading) && answerState[index] ? 'green' : 'transparent'
+                                borderColor: loading ? answerState[index] ? 'green' : 'red' : 'transparent'
                             }}
                             onClick={() => 
                                 clickHandlers(ans, index)
-                               
                             }  
                         >
-                        <h2>{ans.answerText}</h2>
+                        <h2>
+                            {ans.answerText}
+                            
+                        </h2>
+                        {
+                            loading ? answerState[index] ? 
+                            <DoneIcon sx={{color:'green', width:'30px', height:'30px'}}/>
+                            :
+                            <CloseIcon sx={{color:'red', width:'30px', height:'30px'}}/>
+                            :
+                            <></>
+                        }
                         </Button>
                     ))}
                 </Box>
