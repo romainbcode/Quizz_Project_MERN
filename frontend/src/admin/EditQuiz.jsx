@@ -56,7 +56,7 @@ const EditQuiz = () => {
                     yup.object({
                         answerText: yup
                         .string('Add an answer')
-                        .min(3, 'Answer should have a minimum of 10 characters '),
+                        .min(3, 'Answer should have a minimum of 3 characters '),
                         stateAnswer: yup
                         .boolean('Declare False or True')
                     })
