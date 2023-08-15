@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Paper, Typography, autocompleteClasses } from '@mui/material'
+import { Box, Button, Paper, Typography, IconButton } from '@mui/material'
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
-import moment from 'moment'
 import axios from 'axios'
-import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { toast } from 'react-toastify';
@@ -15,40 +13,36 @@ import Navbar from '../components/Navbar';
 
 const AdminDashboard = () => {
 
-    const [posts, setPosts] = useState([]);
+    const [quizs, setQuizs] = useState([]);
 
-    const displayPost = async () => {
-        console.log("okok")
+    const displayQuizs = async () => {
         try {
             const { data } = await axios.get('/api/quizs/show');
-            setPosts(data.quizs);
+            setQuizs(data.quizs);
+            console.log(data.quizs)
         } catch (error) {
             console.log(error);
         }
     }
 
-    //delete post by Id
     const deleteQuizById = async (e, id) => {
-        // console.log(id)
         if (window.confirm("Are you sure you want to delete this post?")) {
             try {
                 const { data } = await axios.delete(`/api/delete/quiz/${id}`);
-                    toast.success(data.message);
-                    displayPost();
+                toast.success(data.message);
+                displayQuizs();
             } catch (error) {
-                console.log(error);
                 toast.error(error);
             }
         }
     }
 
     useEffect(() => {
-        displayPost();
+        displayQuizs();
     }, [])
 
 
     const columns = [
-
         {
             field: '_id',
             headerName: 'Post ID',
@@ -65,7 +59,7 @@ const AdminDashboard = () => {
             headerName: 'Post subheader',
             width: 150,
             renderCell: (params)=>(
-                <label style={{color: 'red'}}>{params.row.subheader}</label>
+                <label>{params.row.subheader}</label>
             )
         },
 
@@ -83,78 +77,43 @@ const AdminDashboard = () => {
             headerName: 'Question',
             width: 150,
             renderCell: (params) => (
-                params.row.questionAnswer.question
+                params.row.questionAnswer.length + " questions(s)"
             )
         },
         {
-            field: 'questionAnswer',
-            headerName: 'answer',
-            autoHeight: true,
-            autoWidth:true,
-            width: 350,
-            valueGetter:(params)=>{
-                var text = ""
-                for (let i = 0; i < params.row.questionAnswer.length; i++) {
-                    for(let j =0; j<params.row.questionAnswer[i].answer.length; j++){
-                        text = text + " question : " + params.row.questionAnswer[i].question + " answer : " + params.row.questionAnswer[i].answer[j].stateAnswer + <br/>
-
-                    }
-
-                }
-                return text
-                }
-                
-            
-
-            
-            //params.row.questionAnswer.answer[0].answerText; 
-            //console.log(params.value.answer)
-            //
-    
-            
+            field: 'scores',
+            headerName: 'scores',
+            width: 150,
+            renderCell:(params)=>(
+                params.row.scores.length + " score(s)"
+            )
         },
         {
             field: "Actions",
             width: 100,
             renderCell: (value) => (
                 <Box sx={{ display: "flex", justifyContent: "space-between", width: "170px" }}>
-                    
                     <Link to={`/admin/quiz/edit/${value.row._id}`}>
                         <IconButton aria-label="edit" >
                             <EditIcon sx={{ color: '#1976d2' }} />
                         </IconButton>
                     </Link>
-                    
                     <IconButton aria-label="delete" onClick={(e) => deleteQuizById(e, value.row._id)} >
                         <DeleteIcon sx={{ color: 'red' }} />
                     </IconButton>
-
                 </Box>
             )
         }
-        
-        
-        
-        
     ];
 
-
     return (
-        <Box >
-        <Navbar/>
-            <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
-                Posts
-            </Typography>
-            <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
-                <Button variant='contained' color="success" startIcon={<AddIcon />}><Link style={{ color: 'white', textDecoration: 'none' }} to="/admin/quiz/create">Create Post</Link> </Button>
-            </Box>
-            <Paper sx={{ bgcolor: "white" }} >
-
+        <>
+        <Navbar titlePage={"Admin dashboard"}/>
+            <Paper sx={{ bgcolor: "white", display:'flex', mt:10}} >
                 <Box sx={{ height: 400, width: '100%' }}>
                     <DataGrid
                         getRowId={(row) => row._id}
                         sx={{
-
                             '& .MuiTablePagination-displayedRows': {
                                 color: 'black',
                             },
@@ -163,16 +122,18 @@ const AdminDashboard = () => {
                                 bgcolor: "white"
                             },
                         }}
-                        rows={posts}
+                        rows={quizs}
                         columns={columns}
                         pageSize={3}
                         rowsPerPageOptions={[3]}
-                        checkboxSelection
                     />
                 </Box>
             </Paper>
+            <Box sx={{display: "flex", justifyContent: "center", mt:2, mb:2 }}>
+                <Button variant='contained' color="success" startIcon={<AddIcon />}><Link style={{ color: 'white', textDecoration: 'none' }} to="/admin/quiz/create">Create Post</Link> </Button>
+            </Box>
 
-        </Box>
+        </>
     )
 }
 
