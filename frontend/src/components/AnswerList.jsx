@@ -30,12 +30,12 @@ const AnswerList = ({ question, answer, numbertotalanswer, numberGoodAnswer}) =>
     return (
         <>
             <Box sx={{width:'100%', mb:2}}>
-                <Typography variant='h3' sx={{display:'flex', justifyContent:'center', alignItems:'center', fontWeight:'bold', color:'primary.themewhite'} }>
+                <Typography variant='h5' sx={{display:'flex', justifyContent:'center', alignItems:'center', fontWeight:'bold', color:'primary.themewhite', padding:2}}>
                     {question}
                 </Typography>
                 <Box sx={{width: '100%', display:'flex', flexDirection:'row', flexWrap:'wrap', justifyContent:'center', alignItems:'center'}}>
                     {answer.map((ans, index)=>(
-                        <Button disabled={loading} key={index} sx={{width:'40%', bgcolor: "primary.light", borderRadius: '20px', boxShadow: '0 3px 10px #000', m:2}}
+                        <Button disabled={loading} key={index} sx={{width:'40%', bgcolor: "primary.light", borderRadius: '20px', boxShadow: '0 3px 10px #000', m:2}} 
                             style={{
                                 border: '3px solid',
                                 borderColor: loading ? answerState[index] ? 'green' : 'red' : 'transparent'
@@ -44,7 +44,7 @@ const AnswerList = ({ question, answer, numbertotalanswer, numberGoodAnswer}) =>
                                 clickHandlers(ans, index)
                             }  
                         >
-                        <h2>
+                        <h2 style={{color:'black'}}>
                             {ans.answerText}
                             
                         </h2>

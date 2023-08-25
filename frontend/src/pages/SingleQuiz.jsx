@@ -77,7 +77,7 @@ const SinglePost = () => {
                     <Box sx={{display: 'flex', justifyContent:'center', width: '90%'}}>
                         <Card sx={{height: '100%', width: '100%', bgcolor:'transparent', boxShadow:'none'}}>
                             <Box sx={{color:'primary.themewhite', bgcolor: "primary.mainGreenDark", borderRadius: '20px', boxShadow: '0 3px 10px #000', m:2 }}>
-                                <Typography variant="body2" sx={{p:2}}>
+                                <Typography variant="body1" sx={{p:2}}>
                                     <Box component='span' dangerouslySetInnerHTML={{ __html: subheader }}></Box>
                                 </Typography>
                             </Box>
