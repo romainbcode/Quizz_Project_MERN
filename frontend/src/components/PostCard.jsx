@@ -18,7 +18,10 @@ export default function PostCard ({
         }}>
             <CardMedia
                 component="img"
-                sx={{ height: '85%', borderRadius: '20px',transitionDuration: '1s', "&:hover": { cursor: "pointer", height: "55%", transitionDuration: '1s' }}}
+                sx={{width:'100%', height: '85%', borderRadius: '20px',transitionDuration: '1s', "&:hover": { cursor: "pointer", height: "55%", transitionDuration: '1s'},
+                    objectFit:'contain'
+                }}
+                
                 image={image}
             />
             <Typography gutterBottom variant="h5" component="div">
